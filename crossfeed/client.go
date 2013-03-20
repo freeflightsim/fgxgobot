@@ -12,7 +12,6 @@ a snapshot to json serves via ajax requests
 
 Note: FGx replies with the Same Origin Policy * ie disabled
 
-
 */
 package crossfeed
 

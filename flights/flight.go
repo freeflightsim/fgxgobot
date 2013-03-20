@@ -1,3 +1,15 @@
+/*
+Package flights - Flight structs and definitions
+
+= XFlight - representaion of a flight
+
+= XPos    - represents a position in time
+
+= AjaxFlight - object to spool out ajax record
+
+= AjaxFlightsPayload - object to spool out ajax Payload
+
+*/
 package flights
 
 import (
@@ -7,10 +19,7 @@ import (
 import (
     "github.com/fgx/fgxgobot/crossfeed"
 )
-//= XFlight - representaion of a flight
-//= XPos    - represents a position in time
-//= AjaxFlight - object to spool out ajax record
-//= AjaxFlightsPayload - object to spool out ajax Payload
+
 
 //= No of positions to store
 //= TODO: this need to be a configurable online ? how
