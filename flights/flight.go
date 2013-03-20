@@ -4,6 +4,8 @@ package flights
 import (
     "time"
     //"fmt"
+    "path/filepath"
+    "strings"
 )
 import (
     "github.com/fgx/fgxgobot/crossfeed"
@@ -33,18 +35,19 @@ const HISTORY_MAX_POSITIONS = 180
 // eg speed trend, vertical speed trend, distance traveled, lookahead etc
 type Flight struct {
 	Callsign string 
-	Model string  
+	Model string
+	Aero string    
 	Positions []*Pos 
 }
 
 // A Position with its Ts timestamp
 type Pos struct {
-	Lat float32 
-	Lon float32 
-	HdgT int
-	AltFt int
-	SpdKt int
-	Ts time.Time 
+	Lat float32   `json:"lat"`
+	Lon float32   `json:"lon"`
+	HdgT int  `json:"hdg_t"`
+	AltFt int  `json:"alt_ft"`
+	SpdKt int  `json:"spd_kt"`
+	Ts time.Time `json:"ts"`
 }
 
 
@@ -68,9 +71,9 @@ func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	p := new(Pos)
 	p.Ts = ts 
 	p.Lat = fly.Lat
-	p.Lon = fly.Lon
-	p.HdgT = fly.HdgT
-	p.SpdKt = fly.SpdKt
+	p.Lon = fly.Lon 
+	p.HdgT = fly.HdgT 
+	p.SpdKt = fly.SpdKt 
 	p.AltFt = fly.AltFt
 	
 	// append out position to end of slice
@@ -93,8 +96,15 @@ func NewFlight(cffly crossfeed.CF_Flight) *Flight{
  	fly := new(Flight)
     fly.Callsign = cffly.Callsign
     fly.Model = cffly.Model
+    aero := filepath.Base(cffly.Model)
+    if strings.HasSuffix(aero, ".xml") {
+    	fly.Aero = aero[0:len(aero)-4]
+    }else{
+    	fly.Aero = aero
+    }
+    
     fly.Positions = make([]*Pos,0, HISTORY_MAX_POSITIONS)
-	return xfly
+	return fly
 }
 
 
@@ -105,6 +115,15 @@ type AjaxFlightsPayload struct {
 	Success bool `json:"success"`
 	Ts string `json:"ts"`
 	Flights []*AjaxFlight `json:"flights"`
+}
+
+// Represents a json encoder spooling out complete ajax payload for  /flight/{callsign}
+type AjaxFlightPayload struct {
+	Success bool `json:"success"`
+	Err bool `json:"err"`
+	ErrMsg string `json:"err_msg"`
+	Callsign string `json:"callsign"`
+	Positions []*Pos `json:"positions"`
 }
 
 // Represents a json encoder row of a Flight
@@ -126,7 +145,7 @@ func NewAjaxFlight(xfly *Flight) *AjaxFlight{
 	rec := new(AjaxFlight)
 	rec.Callsign = xfly.Callsign
 	rec.Model = xfly.Model
-	
+	rec.Aero = xfly.Aero
 	lp := xfly.Position() // last position 
 	rec.Lat = lp.Lat
 	rec.Lon = lp.Lon

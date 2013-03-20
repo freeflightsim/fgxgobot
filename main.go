@@ -9,10 +9,11 @@ import (
 import (   
   //	"code.google.com/p/go.net/websocket"
 	
-   // "flights"
-  //  "mpserver"
+  	"github.com/gorilla/mux"
+  
     "github.com/fgx/fgxgobot/www"
     "github.com/fgx/fgxgobot/xstate"
+   	
    	//"xwebsocket"
 )
 
@@ -30,22 +31,30 @@ func main() {
 	
 	gsm.Start()
 
+
+	
+
+	router := mux.NewRouter()
+	//router.Methods("GET", "POST")
 	
 	//= HELP ? this is not working, even touch full path
 	// Am expection localhost:9999/static/REAME.txt to appear
-	http.Handle("/", http.StripPrefix("/static/", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
 	
 	
+	//router.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
+	router.PathPrefix("/static/").Handler( http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static"))) )
 
-	http.HandleFunc("/flights", www.Ajax_flights)
-	http.HandleFunc("/mpservers", www.Ajax_mpservers)
+	router.HandleFunc("/flights", www.Ajax_flights)
+	router.HandleFunc("/flight/{callsign}", www.Ajax_flight)
+	
+	router.HandleFunc("/mpservers", www.Ajax_mpservers)
 	
 	
-	http.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)
-	http.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
+	router.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)
+	router.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
 	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
-	//http.HandleFunc("/", www.HandleHomePage)
+	http.Handle("/", router)
 	
 	//http.HandleFunc("/crossfeed", crossfeed_handler)
     if err := http.ListenAndServe(":9999", nil); err != nil {

@@ -53,17 +53,18 @@ initComponent: function(){
 		layout: 'border',
 		items: [
 			Ext.create("GB.TopToolbar", {region: "north", x_name: "top_toolbar"}),
-			{xtype: "tabpanel", region: "center", 
+			{xtype: "tabpanel", region: "center", x_name: "tab_panel",
+				closable: true,
 				items: [
 				
 					//== Flights Tab
 					Ext.create("GB.FlightsPanel", {
-						DEADtitle: "Flights"
+						x_name: "flights_panel"
 					}),
 					//== MpServers Tab
 					Ext.create("GB.MpServersPanel", {
 						DEADtitle: "Mp Servers"
-					}),
+					})
 					
 				]
 			}//= center tabs
@@ -73,7 +74,6 @@ initComponent: function(){
 	this.callParent();
 	
 	// Setup trigger of toolbar button to the runner
-	
 	this.down("[x_name=top_toolbar]").on("REFRESH_RATE", function(rate){
 		
 		this.refresh_rate = rate;
@@ -92,6 +92,17 @@ initComponent: function(){
 				scope: this		
 			});
 		}
+	}, this);
+	
+	// Setup trigger of toolbar button to the runner
+	this.down("[x_name=flights_panel]").on("OPEN_FLIGHT", function(fly){
+		console.log("MainVireport.OPEN_FLIGHT", fly);
+		var d = Ext.create("GB.FlightPanel", {
+			Flight: fly, title: fly.callsign, closable: true
+		});
+		var tabPanel = this.down("[x_name=tab_panel]");
+		tabPanel.add(d);
+		tabPanel.setActiveTab(d);
 	}, this);
 	
 }

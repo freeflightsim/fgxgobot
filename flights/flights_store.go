@@ -77,9 +77,9 @@ func (me *FlightsStore) StartCrossfeedTimer() {
 }
 
 
-//= GetAjaxPayload - spools out the flights as json string 
+//= GetAjaxFlightsPayload - spools out the flights as json string 
 //  this is send to client whether ajax request or websocket
-func (me *FlightsStore) GetAjaxPayload() string {
+func (me *FlightsStore) GetAjaxFlightsPayload() string {
 
 	var pay = new(AjaxFlightsPayload)
     pay.Success = true // for extjs
@@ -102,23 +102,26 @@ func (me *FlightsStore) GetAjaxPayload() string {
 }
 
 
-//= This was a Previous attempt using the http.Handle("/flights", this)
-/*
-func (me *FlightsStore) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+//= GetFlightAjaxPayload - spools out a flight as json string in positions
+func (me *FlightsStore) GetAjaxFlightPayload(callsign string) string {
+
+	var pay = new(AjaxFlightPayload)
+    pay.Success = true // for extjs
+    pay.Callsign = callsign
+    pay.Positions = make([]*Pos,0)
+    pay.Err = false
     
-    var pay = new(AjaxFlightsPayload)
-    pay.Success = true
-    pay.Flights = make([]*AjaxFlight,0)
-    
-    for _, ele := range me.Flights {
-    	var ajF = NewAjaxFlight(ele)
-    	pay.Flights = append(pay.Flights, ajF)
-    }
-    
-    s, _ := json.Marshal(pay)
-    
-  	
-  	w.Header().Set("Content-Type", "application/json")
-  	fmt.Fprint(w, string(s))
+    F, ok := me.Flights[callsign]
+    if !ok  {
+    	pay.Err = true
+    	pay.ErrMsg = "Callsign not found"
+    }else{
+    	pay.Positions = F.Positions
+        
+	}
+    s, _ := json.MarshalIndent(pay, "" , "  ")
+    //s, _ := json.Marshal(pay)
+    return string(s)
 }
-*/
+
+

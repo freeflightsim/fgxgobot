@@ -10,6 +10,9 @@ import (
     "encoding/json"
 )
 import (
+
+	"github.com/gorilla/mux"
+	
 	"github.com/fgx/fgxgobot/radio"
 	"github.com/fgx/fgxgobot/xstate"
 )
@@ -40,9 +43,19 @@ func SetAjaxHeaders(w http.ResponseWriter){
 // Return flights data at ajax url = /flights 
 func Ajax_flights(w http.ResponseWriter, r *http.Request) {
 	
-	s := xstate.GStateMachine.Flights.GetAjaxPayload()
+	s := xstate.GStateMachine.Flights.GetAjaxFlightsPayload()
 	fmt.Fprint(w, s)
 }
+
+// Return flight data at ajax url = /flight/{callsign}
+func Ajax_flight(w http.ResponseWriter, r *http.Request) {
+	
+	vars := mux.Vars(r)
+	callsign := vars["callsign"]
+	s := xstate.GStateMachine.Flights.GetAjaxFlightPayload(callsign)
+	fmt.Fprint(w, s)
+}
+
 
 // Returns mpservers data ajax url = /mpservers 
 func Ajax_mpservers(w http.ResponseWriter, r *http.Request) {

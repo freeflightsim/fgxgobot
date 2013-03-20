@@ -23,17 +23,23 @@ initComponent: function(){
 			{text: 'Lat', dataIndex: 'lat', flex: 1, align: "right", menuDisabled: true},
 			{text: 'Lon', dataIndex: 'lon', flex: 1, align: "right", menuDisabled: true},
 			{text: 'Positions', dataIndex: 'positions_count', width: 100, align: "right", menuDisabled: true},
-			{text: 'Model', dataIndex: 'model', flex: 2, align: "left", menuDisabled: true}
+			{text: 'Model', dataIndex: 'aero', flex: 1, align: "left", menuDisabled: true}
 		],
 		dockedItems: [
 			{xtype: 'pagingtoolbar',
 				store: Ext.getStore("stoFlights"), 
 				dock: 'bottom', displayInfo: true
 			}
-		]
+		],
+		listeners: {
+			scope: this,
+			itemdblclick: function(grid, rec, item, idx, e, eOpts){
+				this.fireEvent("OPEN_FLIGHT", rec.getData());
+			}			
+		}
 	});
 	this.callParent();
-},
+}
 
 
 })//= End define
