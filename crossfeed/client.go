@@ -1,6 +1,5 @@
-
-// Package crossfeed - Remote Client for crossfeed.fgx.ch
 /*
+Package crossfeed - Remote Client for crossfeed.fgx.ch
 
 The client aqquires remote flight data from Geoff's CrossFeed fgx-cf
 
@@ -14,7 +13,7 @@ a snapshot to json serves via ajax requests
 Note: FGx replies with the Same Origin Policy * ie disabled
 
 
-/*
+*/
 package crossfeed
 
 import (
