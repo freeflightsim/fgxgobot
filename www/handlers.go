@@ -1,10 +1,11 @@
-
 /*
-Package www - Heals with all web front end 
+Package www - Deals with all web front end http site
 
-* ajax and json response
-*  html pages
-*  static stuff eg js
+<ul>
+<li>ajax and json response</li>
+<li>html pages</li>
+<li>static stuff eg js</li>
+</ul>
 
 */
 package www
