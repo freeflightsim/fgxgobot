@@ -1,3 +1,5 @@
+
+// Package www - deals with all web front end, html and static stuff eg js
 package www
 
 

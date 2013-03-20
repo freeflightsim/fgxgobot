@@ -1,5 +1,4 @@
 // FGx-go - Fun with golang and FlightGear network
-
 package main
 
 import (
