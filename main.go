@@ -1,4 +1,6 @@
-// FGx-go - Fun with golang and FlightGear network
+
+// FGx GoBot! - A FlightGear MultiPlayer Network Bot written in golang 
+
 package main
 
 import (
@@ -17,7 +19,6 @@ import (
 )
 
 
-//== Lets Gooooooooooooooooo! ;-)
 func main() {
 
 	//---------------------------------------------------
