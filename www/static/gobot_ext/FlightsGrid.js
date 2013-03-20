@@ -22,8 +22,8 @@ initComponent: function(){
 			{text: 'Hdg True', dataIndex: 'hdg_t', flex: 1, align: "right", menuDisabled: true},
 			{text: 'Lat', dataIndex: 'lat', flex: 1, align: "right", menuDisabled: true},
 			{text: 'Lon', dataIndex: 'lon', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Model', dataIndex: 'model', flex: 2, align: "left", menuDisabled: true},
-			{text: 'Positions', dataIndex: 'positions_count', flex: 2, align: "left", menuDisabled: true}
+			{text: 'Positions', dataIndex: 'positions_count', width: 100, align: "right", menuDisabled: true},
+			{text: 'Model', dataIndex: 'model', flex: 2, align: "left", menuDisabled: true}
 		],
 		dockedItems: [
 			{xtype: 'pagingtoolbar',

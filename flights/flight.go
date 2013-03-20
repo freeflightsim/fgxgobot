@@ -1,15 +1,4 @@
-/*
-Package flights - Flight structs and definitions
 
-= XFlight - representaion of a flight
-
-= XPos    - represents a position in time
-
-= AjaxFlight - object to spool out ajax record
-
-= AjaxFlightsPayload - object to spool out ajax Payload
-
-*/
 package flights
 
 import (
@@ -21,28 +10,30 @@ import (
 )
 
 
-//= No of positions to store
-//= TODO: this need to be a configurable online ? how
-//        so for now a constant
-const HISTORY_MAX_POSITIONS = 5 //180  // 3 mins at 1 req per second
+// No of positions to store
+// 
+// 	TODO: this need to be a configurable online ? how
+//  	  so for now a constant
+//        Defaut is 180 = 3 min track at 1 req per second
+const HISTORY_MAX_POSITIONS = 180  
 
 
-//--------------------------------------------------------------------
-//= XFlight is an entry in the FlightsStore and contains data on a flight
-// The flight track is stores in the  Positions in a slice
+
+// Flight is an entry in the FlightsStore and contains data on a flight
+// The flight track is stored in the XFlight.Positions slice
 // A flight will accumulate positions until HISTORY_MAX_POSITIONS
 // Current position should be XFlight.Positions[0] unless there is a better way
-// TODO: The flight need some calculations based on positions
-//       eg speed trend, vertical speed trend, distance traveled, lookahead etc
-
-type XFlight struct {
+// 
+//		TODO: The flight need some calculations based on positions
+//	          eg speed trend, vertical speed trend, distance traveled, lookahead etc
+type Flight struct {
 	Callsign string 
 	Model string  
-	Positions []*XPos 
+	Positions []*Pos 
 }
 
-//= Position
-type XPos struct {
+// A Position
+type Pos struct {
 	Lat float32 
 	Lon float32 
 	HdgT int
@@ -52,8 +43,9 @@ type XPos struct {
 }
 
 
-//= UpdatePosition inserts an item into the list of positions
-func (me *XFlight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
+// UpdatePosition() -  inserts an item into the list of XFlights.Positions
+// but only if the position has changed ie not parked
+func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	
 	// Check if this position same as last position
 	if len(me.Positions) > 1 {
@@ -79,53 +71,50 @@ func (me *XFlight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	// append out position to end of slice
 	me.Positions = append(me.Positions, p)
 	
-	//= Remove first item if up to Max Positions
+	// remove first item if up to Max Positions
 	if len(me.Positions) == HISTORY_MAX_POSITIONS + 1 {
 		 me.Positions = me.Positions[1:]
 	}
 }
-//= Return current position (last entry in slice)
+
+// Returns *XPos pointer of the current position;  ie last entry in slice 
 func (me *XFlight) Position() *XPos{
 	return me.Positions[ len(me.Positions) - 1 ]
 }
 
-//--------------------------------------------------------------------
-
-
 
 //--------------------------------------------------------------------
-//= NewXFlights from Crossfeed flight
+// NewXFlight() - constructs and returns a new Flight (created from a crossfeed.CF_Flight)
 func NewXFlight(cffly crossfeed.CF_Flight) *XFlight{
- 	xfly := new(XFlight)
+ 	xfly := new(Flight)
     xfly.Callsign = cffly.Callsign
     xfly.Model = cffly.Model
-    xfly.Positions = make([]*XPos,0, HISTORY_MAX_POSITIONS)
+    xfly.Positions = make([]*Pos,0, HISTORY_MAX_POSITIONS)
 	return xfly
 }
 
 
 
-//--------------------------------------------------------------------
-//= Structs for spooling out Ajax
 
-//= The Complete payload sent
+// Represents a json encoder spooling out complete ajax payload for  /flights
 type AjaxFlightsPayload struct {
 	Success bool `json:"success"`
 	Ts string `json:"ts"`
 	Flights []*AjaxFlight `json:"flights"`
 }
 
-//= A Flight Row
+// Represents a json encoder row of a Flight
 type AjaxFlight struct {
 	Callsign string `json:"callsign"`
 	Model string `json:"model"`
+	Aero string `json:"aero"`
 	Lat float32 `json:"lat"`
 	Lon float32 `json:"lon"`
 	AltFt int `json:"alt_ft"`
 	SpdKt int `json:"spd_kt"`
 	HdgT int  `json:"hdg_t"`
 	Ts string `json:"ts"`  // ISO eg 2015-12-25 00:00:01.123 << Yes we may need milisec
-	PositionsCount int `json:"postions_count"`
+	PositionsCount int `json:"positions_count"`
 }
 
 //= Creates a new Flight from poisiton etc
@@ -135,6 +124,7 @@ func NewAjaxFlight(xfly *XFlight) *AjaxFlight{
 	rec := new(AjaxFlight)
 	rec.Callsign = xfly.Callsign
 	rec.Model = xfly.Model
+	
 	lp := xfly.Position() // last position 
 	rec.Lat = lp.Lat
 	rec.Lon = lp.Lon
