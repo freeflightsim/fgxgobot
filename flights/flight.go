@@ -5,7 +5,7 @@ import (
     //"fmt"
 )
 import (
-    "github.com/FreeFlightSim/ffsgobot/crossfeed"
+    "github.com/fgx/fgxgobot/crossfeed"
 )
 //= XFlight - representaion of a flight
 //= XPos    - represents a position in time

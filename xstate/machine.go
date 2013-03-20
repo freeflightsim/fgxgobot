@@ -4,8 +4,8 @@ import (
     "time"
 )
 import (
-    "github.com/FreeFlightSim/ffsgobot/mpserver"
-    "github.com/FreeFlightSim/ffsgobot/flights"
+    "github.com/fgx/fgxgobot/mpserver"
+    "github.com/fgx/fgxgobot/flights"
 )
 
 // The "StateMachine" is the in memory database instance 

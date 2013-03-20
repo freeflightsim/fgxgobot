@@ -7,7 +7,7 @@ import (
     "sort"
 )
 import (
-    "github.com/FreeFlightSim/ffsgobot/crossfeed"
+    "github.com/fgx/fgxgobot/crossfeed"
 )
 
 //--------------------------------------------------------------------

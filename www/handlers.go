@@ -10,8 +10,8 @@ import (
    // "encoding/json"
 )
 import (
-	"github.com/FreeFlightSim/ffsgobot/radio"
-	"github.com/FreeFlightSim/ffsgobot/xstate"
+	"github.com/fgx/fgxgobot/radio"
+	"github.com/fgx/fgxgobot/xstate"
 	
 )
 

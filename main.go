@@ -12,8 +12,8 @@ import (
 	
    // "flights"
   //  "mpserver"
-    "github.com/FreeFlightSim/ffsgobot/www"
-    "github.com/FreeFlightSim/ffsgobot/xstate"
+    "github.com/fgx/fgxgobot/www"
+    "github.com/fgx/fgxgobot/xstate"
    	//"xwebsocket"
 )
 
