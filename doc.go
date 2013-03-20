@@ -1,10 +1,13 @@
+// Copyright 2013 pete@freeflightsim.org. All rights reserved.
+// Use of this source code is governed by the GPL Licence
+// license that can be found in the LICENSE file.
 
-// Package main - An experimental FG Multi Player Network Bot written in Go (http://golang.org)
-package main
+
 
 /*
 =====================
-Basic Structure
+FGx Go Bot ! 
+An experimental FG Multi Player Network Bot written in Go (http://golang.org)
 =====================
 
 /crossfeed/ 
@@ -14,3 +17,4 @@ Basic Structure
 	
 
 */
+package main
