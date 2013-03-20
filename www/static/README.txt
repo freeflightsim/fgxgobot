@@ -1,1 +1,0 @@
-HI THIS IS a STATIC file
