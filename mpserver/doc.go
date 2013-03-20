@@ -16,7 +16,12 @@ Package mpserver - The FlightGear Multiplayer Servers
 	The server addresses are in the flightgear.org TLD are are numbered
 	- mpserver01.flightgear.org to mpserverNN.flightgear.org
 	- currently its up to around mpserver20.flightgear.org
+	- The Servers are discovered from DNS by looking up the address
 	
-	The Servers are discovered from DNS by looking up the address
+	A running fgms has the following "net" interfaces
+	* port 5000 - this is the UDP socket for sim and relay
+	* port 5001 - is the admin port this returns info on state
+	              eg telnet mpserver14.flightgear.org 5001
+	* crossfeed - these are udp packets "crossfeed" to another channel eg 5555
 */
 package mpserver
