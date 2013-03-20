@@ -9,7 +9,7 @@ import (
 )
 
 
-// The max dns to lookup 
+// The max dns no to lookup 
 const MAX_DNS_SERVER = 30
 
 
@@ -52,10 +52,11 @@ func (me *MpServersStore) DoDnsScan() {
 	}
 }
 
-//= DnsLookupServer -  return the ip address or error
-// This Creates/Updates an MpServer object in the Store
+// DnsLookupServer returns the ip address or error
 //
-// ? Help ? is this the right way to do it in go ?
+// This Creates or Updates an MpServer object in the Store
+//
+// BUG(pete): help -  is this the right way to do it in go ?
 func (me *MpServersStore) DnsLookupServer(no int) {
 	
 	fqdn := GetServerName(no)
@@ -87,8 +88,8 @@ func (me *MpServersStore) DnsLookupServer(no int) {
 }
 
 
-//= GetAjaxPayload - spools out the /mpservers as json string 
-// - this is send to client whether ajax request or websocket
+// GetAjaxPayload returns the MpServers data as a json string.
+// This can then be sent to client whether ajax request or websocket whatever
 func (me *MpServersStore) GetAjaxPayload() string {
 
     // Create new payload  MpServers as Array instead of Map
