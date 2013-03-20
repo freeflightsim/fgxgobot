@@ -125,6 +125,7 @@ type AjaxFlight struct {
 	SpdKt int `json:"spd_kt"`
 	HdgT int  `json:"hdg_t"`
 	Ts string `json:"ts"`  // ISO eg 2015-12-25 00:00:01.123 << Yes we may need milisec
+	PositionsCount int `json:"postions_count"`
 }
 
 //= Creates a new Flight from poisiton etc
@@ -141,6 +142,7 @@ func NewAjaxFlight(xfly *XFlight) *AjaxFlight{
 	rec.SpdKt = lp.SpdKt
 	rec.HdgT = lp.HdgT
 	rec.Ts = lp.Ts.Format("2006-01-02 15:04:05")
+	rec.PositionsCount = len(xfly.Positions)
 	return rec
 }
 
