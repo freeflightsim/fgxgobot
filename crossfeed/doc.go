@@ -17,8 +17,5 @@ Package crossfeed - Remote Client for crossfeed.fgx.ch
 		Project:  http://fgx.ch/projects/fgx-cf
 		Code:     https://gitorious.org/fgtools/crossfeed
 		More info in mpserver package http://godoc.org/github.com/fgx/fgxgobot/mpserver
-
-	
-
 */
 package crossfeed
