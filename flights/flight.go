@@ -20,11 +20,16 @@ const HISTORY_MAX_POSITIONS = 180
 
 
 // Flight is an entry in the FlightsStore and contains data on a flight
-//	The flight track is stored in the Flight.Positions slice
-//	A flight will accumulate positions until HISTORY_MAX_POSITIONS
-// 	Current position should be XFlight.Positions[0] unless there is a better way
-// 	TODO: The flight need some calculations based on positions
-//		  eg speed trend, vertical speed trend, distance traveled, lookahead etc
+//
+// The flight track is stored in the Flight.Positions slice and a
+// flight will accumulate positions until HISTORY_MAX_POSITIONS. 
+// Positions are simply appended on each update.
+//
+// The current position is the last ie Flight.Positions[len - 1] 
+// (unless there is a better way)
+// 
+// TODO: The flight need some calculations based on positions 
+//  eg speed trend, vertical speed trend, distance traveled, lookahead etc
 type Flight struct {
 	Callsign string 
 	Model string  
@@ -85,10 +90,10 @@ func (me *Flight) Position() *Pos{
 //--------------------------------------------------------------------
 // NewXFlight() - constructs and returns a new Flight (created from a crossfeed.CF_Flight)
 func NewFlight(cffly crossfeed.CF_Flight) *Flight{
- 	xfly := new(Flight)
-    xfly.Callsign = cffly.Callsign
-    xfly.Model = cffly.Model
-    xfly.Positions = make([]*Pos,0, HISTORY_MAX_POSITIONS)
+ 	fly := new(Flight)
+    fly.Callsign = cffly.Callsign
+    fly.Model = cffly.Model
+    fly.Positions = make([]*Pos,0, HISTORY_MAX_POSITIONS)
 	return xfly
 }
 
