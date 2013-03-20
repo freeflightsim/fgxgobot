@@ -1,0 +1,105 @@
+
+>>> Pere's coments to remind himself
+
+Here's some notes on issues I had with go,
+and this is with a background and paid for
+php, vb6, python, pyqt, qt/C++, little java
+
+----------------------------------------------------------------
+= Un Exported Packages and functions and variables
+----------------------------------------------------------------
+This was a pain, any Variables or Functions that DO NOT 
+start with a "C"apital, are not exported, 
+ie visible outside of the "package"
+In a way uNCaptisalised variables and functions are private to the package
+
+eg
+package foo
+
+var x int = 1
+var Y int = 2
+
+func Foo() string { return "Foo" }
+
+func bar() string {	return "bAR" }
+
+-----
+package xyz
+
+import("foo")
+myX := foo.x // Fails as "x" is lower case, so not exported
+myY := foo.Y // OK we can see that
+myF := foo.Foo() //  returns string Foo
+myB := foo.boo() // fails as "b" means its not exported
+
+
+----------------------------------------------------------------
+= Constants don't have types
+----------------------------------------------------------------
+const int Foo = 1 // type not needed
+const Foo = 1 //  works
+const bAA = 2 // works but not visible outside package
+const gString = "pull them down, or your para will fail"
+
+
+----------------------------------------------------------------
+= There are no constructors
+----------------------------------------------------------------
+type MyStuff struct{
+	n int
+	Foo string
+	bar string
+}
+
+Unlike 
+  C++ - MyStuff::MyStuff 
+  java MyStuff
+  pythons def MyStuff.__init__(self)
+  or php
+  
+Instead its recommended u create a NewXXX() function that 
+returns and initialises the type to default values
+none of them silly null errors in c++ that drive one nuts
+but also is sensible on reflection as "maps" althoug declared
+need to be initialised, and other things such as channels
+
+eg three flavours of constructor
+func NewMyStuff() *MyStuff{
+	nu = new(MyStuff)
+	nu.n = 10
+	nu.bar = "order"
+	return nu // NOT .Foo was not set so is ""
+}
+func NewMyStuff() *MyStuff{
+	nu = &MyStuff{Foo: "fuu"}
+	return nu // NOT .Foo was not set so is "" and nu is 0
+}
+func NewMyStuff() *MyStuff{
+	return &MyStuff{n: -1}
+}
+
+
+----------------------------------------------------------------
+= Global Variables and Singleton
+----------------------------------------------------------------
+For this app a "SingleTon" patterns was required 
+.. kind, for the want of a word
+
+The Main Singleton ie Global is a variable at
+xstate.GStateMachine for this app
+
+There were many silly attempts to create the singleton,
+and a path biased by c++, and a bit of python issues
+There are so many previous "circular references" but indeed was simple maybe
+
+In fact is was solved with main.go creating the instance and done
+
+eg from anywhere
+import ("xstate")
+curr_flights := xstate.GStateMachine.Flights.GetCount()
+
+
+
+
+
+
