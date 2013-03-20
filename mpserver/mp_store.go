@@ -52,9 +52,8 @@ func (me *MpServersStore) DoDnsScan() {
 	}
 }
 
-// DnsLookupServer returns the ip address or error
-//
-// This Creates or Updates an MpServer object in the Store
+// DnsLookupServer returns the ip address or error. 
+// It then creates or ppdates an MpServer object in the mpserver.MpServersStore
 //
 // BUG(pete): help -  is this the right way to do it in go ?
 func (me *MpServersStore) DnsLookupServer(no int) {
