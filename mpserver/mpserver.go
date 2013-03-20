@@ -33,7 +33,9 @@ const STATUS_UP string = "Up"
 
 
 //-------------------------------------------------------------
-// MpServer is the record
+
+
+// MpServer is the record stores in the MpServersStore
 type MpServer struct {
 	Status string  `json:"status"`
 	No int `json:"no"`
