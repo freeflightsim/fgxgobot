@@ -21,7 +21,6 @@ import (
 import (
 	"github.com/fgx/fgxgobot/radio"
 	"github.com/fgx/fgxgobot/xstate"
-	
 )
 
 //-------------------------------------------------------------------------

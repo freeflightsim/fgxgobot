@@ -1,10 +1,16 @@
+/*
+Package radio - Experimental stuff with radio telephony 
+
+
+References:
+
+http://en.wikipedia.org/wiki/NATO_phonetic_alphabet
+
+http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#History
+
+*/
 package radio
 
-// Package radio contains all the stuff to do with radio telephony in sim
-// Maybe this could be a service on appengine ?
-//
-//   - http://en.wikipedia.org/wiki/NATO_phonetic_alphabet
-//   - http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#History
 
 import (
 	"fmt"
