@@ -1,12 +1,18 @@
 /*
 Package radio - Experimental stuff with radio telephony 
 
-
-References:
-
-http://en.wikipedia.org/wiki/NATO_phonetic_alphabet
-
-http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#History
+	Radio Telephony
+	====================================================================
+	
+	The initial idea is 
+	- to have a simple alphabet available
+	- convert a callsign to words
+	- TODO make up a silly testing practice bot
+	- TODO Use the proper ICAO codes and phonetic etc can u help
+	
+	References:
+		http://en.wikipedia.org/wiki/NATO_phonetic_alphabet
+		http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#History
 
 */
 package radio
@@ -20,9 +26,8 @@ import (
 )
 
 
-//================================================
-// Definition
-//================================================
+
+// Represent a Character in the Alphabet with json encoding for output
 type Alpha struct{
 	Char string `json:"char"`
 	Word string `json:"word"`
@@ -30,10 +35,8 @@ type Alpha struct{
 	Morse string `json:"morse"`
 }
 
-//= Create the map
-// BUG(perdo) - this needs to be icao
 
-//= maybe this could be in and the byte no of "character" is index == restricted ;-)
+// A map of the Alphabet definition
 var AlphabetICAO = map[string]*Alpha {
 
 	"-": {"-", "dash", "?", ""},
@@ -86,17 +89,17 @@ var AlphabetICAO = map[string]*Alpha {
 
 
 
-//---------------------------------------------------------------
-// Ajax
-//--------------------------------------------------------------
+
+// An Ajax encoding for a payload
 type AjaxRadioAlphabetPayload struct{
 	Success bool `json:"success"`
 	Alphabet[] *Alpha `json:"alphabet"`
 }
 
-//= Spool out the ajax
-// ? help ? theres got be a way to make a "constant" variable global This feels wrong !!
-//           in this mod? there must be a better way.. AND sorted keys BTW
+// GetAjaxAlphabet()  returns a string with the encoded json payload
+// 
+// TODO - Help theres got be a way to make a "constant" variable global This feels wrong !!
+//  in this package? there must be a better way.. AND sorted keys BTW
 func GetAjaxAlphabet() string{
 	payload := new(AjaxRadioAlphabetPayload)
 	payload.Success = true
@@ -119,7 +122,7 @@ func GetAjaxAlphabet() string{
 }
 
 
-//= Will return the words from a callsing eg BA19 returns "bravo alfa zero niner"
+// Returns a string with the words from a callsing eg BA19 returns "bravo alfa zero niner"
 func Callsign2Words  (callsign string) string {
 	
 
