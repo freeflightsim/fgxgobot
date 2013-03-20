@@ -1,3 +1,5 @@
+
+// Package state - Contains the "GStatMachine" Object, and is the global instance
 package xstate
 
 import (
