@@ -24,8 +24,9 @@ func GetServerName(no int) string {
 
 
 //-------------------------------------------------------------
-
+//
 // MpServer Statuses
+//
 //
 // Unkown is at startup
 const STATUS_UNKNOWN string = "Unknown" 
