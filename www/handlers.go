@@ -1,9 +1,10 @@
 /*
-Package www - Deals with all web front end
+Package www - Deals with web front end
 
-	* ajax and json response
-	* html pages
-	* static stuff eg js
+    The Front End requests for 
+		* ajax and json response
+		* html pages
+		* static stuff eg js
 
 */
 package www
