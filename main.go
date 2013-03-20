@@ -36,15 +36,13 @@ func main() {
 	http.Handle("/static/", http.FileServer(http.Dir("/home/daffodil/gogo/src/www/static")))
 	
 	
-	//= Mad but initially trying to use the naming convention of
-	// www.Ajax_foo where foo == http://server.com/foo
-	// www.Ajax_foo_bar would be == http://server.com/foo_bar
+
 	http.HandleFunc("/flights", www.Ajax_flights)
 	http.HandleFunc("/mpservers", www.Ajax_mpservers)
 	
-	//http.HandleFunc("/radio/callsign", www.Ajax_radio_callsign)
-	http.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)
 	
+	http.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)
+	http.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
 	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
 	http.HandleFunc("/", www.HandleHomePage)

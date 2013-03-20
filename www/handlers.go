@@ -40,8 +40,8 @@ func Ajax_radio_alphabet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("YES",s)
 	fmt.Fprint(w, s)
 }
-// Returns callsign as a wors at ajax url= /radio/callsign
-func Ajax_radio_callsign(w http.ResponseWriter, r *http.Request) {
+// Returns callsign as a wors at ajax url= /radio/callsign2words
+func Ajax_radio_callsign2words(w http.ResponseWriter, r *http.Request) {
 	
 	req_callsign := "unix09" // extract from request
 	words := radio.Callsign2Words(req_callsign)
