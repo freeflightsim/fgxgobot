@@ -4,7 +4,6 @@
 // This is the main data store in memory for the application
 // - Upon startup with  NewStateMachine()
 // - A global instance of xstate.GStateMachine is available
-
 package xstate
 
 import (

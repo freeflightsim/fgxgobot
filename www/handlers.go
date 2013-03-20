@@ -1,11 +1,9 @@
 /*
-Package www - Deals with all web front end http site
+Package www - Deals with all web front end
 
-<ul>
-<li>ajax and json response</li>
-<li>html pages</li>
-<li>static stuff eg js</li>
-</ul>
+	* ajax and json response
+	* html pages
+	* static stuff eg js
 
 */
 package www
@@ -60,16 +58,22 @@ func Ajax_radio_callsign(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, words)
 }
 
+
+
+
 //-------------------------------------------------------------------------
 // == Html Handling ==
 //-------------------------------------------------------------------------
+
+// A stuct for the templates
+// BUG(perdo) - need to get extjs and other configs
 type TemplateContext struct{
 	Name string
 	Addr string
 }
 
 
-// HomePage - Rattles out the index.html template 
+// Handles HomePage - returns out the index.html template 
 func HandleHomePage(w http.ResponseWriter, r *http.Request) {
 	
 	context := &TemplateContext{Name: "Foobar", Addr: "localhost:9999"}
