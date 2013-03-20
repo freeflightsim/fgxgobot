@@ -63,7 +63,9 @@ type AjaxMpServersPayload struct {
 }
 
 
-// Constucts and returns a new MpServer instance
+/* 
+	Constucts and returns a new MpServer instance
+*/
 func NewMpServer() *MpServer {
 	return &MpServer{}
 }
