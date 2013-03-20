@@ -96,6 +96,8 @@ type AjaxRadioAlphabetPayload struct{
 	Alphabet[] *Alpha `json:"alphabet"`
 }
 
+var cAjaxPayload *AjaxRadioAlphabetPayload 
+
 // GetAjaxAlphabet()  returns a string with the encoded json payload
 // 
 // TODO - Help theres got be a way to make a "constant" variable global This feels wrong !!

@@ -1,12 +1,3 @@
-/*
-Package www - Deals with web front end
-
-    The Front End requests for 
-		* ajax and json response
-		* html pages
-		* static stuff eg js
-
-*/
 package www
 
 
@@ -25,31 +16,31 @@ import (
 
 //-------------------------------------------------------------------------
 // == Ajax handlers ==
-//-------------------------------------------------------------------------
 
 
-// Handles ajax url = /flights 
+
+// Return flights data at ajax url = /flights 
 func Ajax_flights(w http.ResponseWriter, r *http.Request) {
 	
 	s := xstate.GStateMachine.Flights.GetAjaxPayload()
 	fmt.Fprint(w, s)
 }
 
-// Handles ajax url = /mpservers 
+// Returns mpservers data ajax url = /mpservers 
 func Ajax_mpservers(w http.ResponseWriter, r *http.Request) {
 	
 	s := xstate.GStateMachine.MpServers.GetAjaxPayload()
 	fmt.Fprint(w, s)
 }
 
-// Handles ajax url = /radio/dialect 
+// Returns radio alphabet data ajax url = /radio/alphabet
 func Ajax_radio_alphabet(w http.ResponseWriter, r *http.Request) {
 	
 	s := radio.GetAjaxAlphabet()
 	fmt.Println("YES",s)
 	fmt.Fprint(w, s)
 }
-// url= /radio/callsign
+// Returns callsign as a wors at ajax url= /radio/callsign
 func Ajax_radio_callsign(w http.ResponseWriter, r *http.Request) {
 	
 	req_callsign := "unix09" // extract from request
