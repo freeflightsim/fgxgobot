@@ -1,9 +1,13 @@
 /* 
-Package mpserver - The FG Multiplayer Network
+Package mpserver - The FlightGear Multiplayer Servers
 
-Basics
+About fgms
 
-MpServers are instances of fgms
+The Mp Servers are instances of the FlightGear Multiplayer Server (fgms)
+
+Pilots flying in the sim connect to a running instance on a server and speak
+to each other with udp packets
+
 
 */
 package mpserver
