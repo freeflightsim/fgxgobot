@@ -10,11 +10,11 @@ import (
     "encoding/json"
 )
 
-// FGX_CF_FLIGHTS_URL - the upstream url for flights data
+// The upstream url at fgx for flights data
 const FGX_CF_FLIGHTS_URL = "http://crsossfeed.fgx.ch/data"
 
 
-//= A Flight Row from ajax crossfeed
+// A Flight Row from ajax crossfeed for decoding
 type CF_Flight struct {
 	Fid uint64 `json:"fid"`
 	Callsign string `json:"callsign"`
@@ -26,7 +26,7 @@ type CF_Flight struct {
 	Model string `json:"model"`
 }
 
-//= Represents the whole Blob from fgx-crossfeed	
+// Represents the whole Blob from fgx-crossfeed	 for decoding
 type CF_Reply struct {
 	Success bool `json:"success"`
 	LastUpdated string `json:"last_updated"`
@@ -37,8 +37,8 @@ type CF_Reply struct {
 
 
 
-//= Make a requests to remote CF server and reply to channel
-// - TODO: time the request/respose time
+// Make a request to remote server server and reply to channel
+// - TODO: time the request/respose time and catch errors
 func MakeRequest(c chan CF_Reply) {
 
 	//t_start := time.Now()
