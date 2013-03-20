@@ -26,12 +26,7 @@ import (
     "encoding/json"
 )
 
-//======================================================
-// The Crossfeed Client
-//======================================================
-
-
-  
+// FGX_CF_FLIGHTS_URL - the upstream url for flights data
 const FGX_CF_FLIGHTS_URL = "http://crsossfeed.fgx.ch/data"
 
 
