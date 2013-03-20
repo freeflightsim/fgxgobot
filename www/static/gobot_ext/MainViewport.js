@@ -9,8 +9,10 @@ runner:  Ext.create("Ext.util.TaskRunner", {}),
 
 initComponent: function(){
 	
-	//=== Initialise the stores
 	
+	//=== Initialise the stores  and sort ====
+	
+	// Flights Store
 	Ext.create("Ext.data.JsonStore", {
 		model: "GB.model.Flight",
 		storeId: "stoFlights",
@@ -23,13 +25,11 @@ initComponent: function(){
 				root: 'flights',
 				idProperty: 'callsign' // later FID ?
 			}
-		},
-		
+		}
 	});
 	Ext.getStore("stoFlights").sort("callsign", "ASC");
 
-
-
+	// MpServers store
 	Ext.create("Ext.data.JsonStore", {
 		model: "GB.model.MpServer",
 		storeId: "stoMpServers",
@@ -47,6 +47,7 @@ initComponent: function(){
 	Ext.getStore("stoMpServers").sort("subdomain", "ASC");
 	
 	
+	//==== MainViewport for app ===
 	Ext.apply(this, {
 		layout: 'border',
 		items: [
@@ -56,9 +57,12 @@ initComponent: function(){
 				
 					//== Flights Tab
 					Ext.create("GB.FlightsPanel", {
-						title: "Flights",
+						DEADtitle: "Flights"
 					}),
-					
+					//== MpServers Tab
+					Ext.create("GB.MpServersPanel", {
+						DEADtitle: "Mp Servers"
+					}),
 					
 				]
 			}//= center tabs

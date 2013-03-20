@@ -12,7 +12,7 @@ Ext.define('GB.model.Flight', {
         {name: 'hdg_t', type: 'int', sortType: "asInt"},
         {name: 'lat',  type: 'string'},
         {name: 'lon',  type: 'string'},
-		{name: 'positions_count',   type: 'int',sortType: "asInt"},
+		{name: 'positions_count',  type: 'int',sortType: "asInt"},
     ]
 });
 
