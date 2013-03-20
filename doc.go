@@ -13,7 +13,7 @@ package main
 
 import(
 	"github.com/fgx/fgxgobot/xstate"
-	"github.com/fgx/fgxgobot/mpservers"
+	"github.com/fgx/fgxgobot/mpserver"
 	"github.com/fgx/fgxgobot/flights"
 	"github.com/fgx/fgxgobot/crossfeed"
 	
