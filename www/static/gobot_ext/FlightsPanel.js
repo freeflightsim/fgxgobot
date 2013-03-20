@@ -7,10 +7,14 @@ initComponent: function(){
 	Ext.apply(this, {
 		title: "Flights",
 		border: false, frame: false,
-		layout: "hbox",
+		layout: "border",
 		items: [
-			Ext.create("GB.FlightsGrid", {flex: 3}),
-			Ext.create("GB.FlightsAltitudeChart", {layout: "fit", flex: 2, height: window.innerHeight - 50})
+			Ext.create("GB.FlightsGrid", {
+				region: "center", flex: 3
+			}),
+			Ext.create("GB.FlightsAltitudeChart", {
+				region: "east", flex: 2, DEADheight: window.innerHeight - 50
+			})
 		]
 	});
 	this.callParent();

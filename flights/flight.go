@@ -12,20 +12,19 @@ import (
 
 // No of positions to store
 // 
-// 	TODO: this need to be a configurable online ? how
-//  	  so for now a constant
-//        Defaut is 180 = 3 min track at 1 req per second
+//	TODO: this need to be a configurable online ? how
+// 		  so for now a constant
+//		  Defaut is 180 = 3 min track at 1 req per second
 const HISTORY_MAX_POSITIONS = 180  
 
 
 
 // Flight is an entry in the FlightsStore and contains data on a flight
-// The flight track is stored in the XFlight.Positions slice
-// A flight will accumulate positions until HISTORY_MAX_POSITIONS
-// Current position should be XFlight.Positions[0] unless there is a better way
-// 
-//		TODO: The flight need some calculations based on positions
-//	          eg speed trend, vertical speed trend, distance traveled, lookahead etc
+//	The flight track is stored in the Flight.Positions slice
+//	A flight will accumulate positions until HISTORY_MAX_POSITIONS
+// 	Current position should be XFlight.Positions[0] unless there is a better way
+// 	TODO: The flight need some calculations based on positions
+//		  eg speed trend, vertical speed trend, distance traveled, lookahead etc
 type Flight struct {
 	Callsign string 
 	Model string  
@@ -117,9 +116,7 @@ type AjaxFlight struct {
 	PositionsCount int `json:"positions_count"`
 }
 
-//= Creates a new Flight from poisiton etc
-// TODO This will need to change to maybe returning a list of last x positions
-//      or other tricks required by a map or a radar interface, overview etc
+//Creates a new AjaxFlight for encoding
 func NewAjaxFlight(xfly *Flight) *AjaxFlight{
 	rec := new(AjaxFlight)
 	rec.Callsign = xfly.Callsign
