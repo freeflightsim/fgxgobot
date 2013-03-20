@@ -11,13 +11,9 @@ The Mp Servers are instances of the "FlightGear Multiplayer Server" (fgms)
 Pilots flying in the sim connect to a running instance on a server and speak
 to each other with udp packets
 
+These servers are named mpserver01.flightgear.org - mpserverXX.flightgear.org
 
-//= The MultiPlayers servers are instances of
-// the "FlightGear Multiplayer Server" - fgms
-//
-
-//
-// These Servers are discovered from DNS by looking up mpserver01.flightgear.org > n
+The Servers are discovered from DNS by looking up mpserver01.flightgear.org > n
 
 
 */
