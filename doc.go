@@ -1,4 +1,5 @@
 
+// Package main - An experimental FG Multi Player Network Bot written in Go (http://golang.org)
 package main
 
 /*
