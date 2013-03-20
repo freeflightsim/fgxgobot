@@ -22,21 +22,21 @@ import (
 //-------------------------------------------------------------------------
 
 
-// url= /flights 
+// Handles ajax url = /flights 
 func Ajax_flights(w http.ResponseWriter, r *http.Request) {
 	
 	s := xstate.GStateMachine.Flights.GetAjaxPayload()
 	fmt.Fprint(w, s)
 }
 
-// url= /mpservers 
+// Handles ajax url = /mpservers 
 func Ajax_mpservers(w http.ResponseWriter, r *http.Request) {
 	
 	s := xstate.GStateMachine.MpServers.GetAjaxPayload()
 	fmt.Fprint(w, s)
 }
 
-// url= /radio/dialect 
+// Handles ajax url = /radio/dialect 
 func Ajax_radio_alphabet(w http.ResponseWriter, r *http.Request) {
 	
 	s := radio.GetAjaxAlphabet()
