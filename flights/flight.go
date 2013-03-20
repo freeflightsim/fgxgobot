@@ -60,7 +60,7 @@ func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	}
 	
 	//fmt.Println("Not Dupe", fly.Callsign)
-	p := new(XPos)
+	p := new(Pos)
 	p.Ts = ts 
 	p.Lat = fly.Lat
 	p.Lon = fly.Lon
@@ -77,15 +77,15 @@ func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	}
 }
 
-// Returns *XPos pointer of the current position;  ie last entry in slice 
-func (me *XFlight) Position() *XPos{
+// Returns *Pos pointer of the current position;  ie last entry in slice 
+func (me *Flight) Position() *Pos{
 	return me.Positions[ len(me.Positions) - 1 ]
 }
 
 
 //--------------------------------------------------------------------
 // NewXFlight() - constructs and returns a new Flight (created from a crossfeed.CF_Flight)
-func NewXFlight(cffly crossfeed.CF_Flight) *XFlight{
+func NewFlight(cffly crossfeed.CF_Flight) *Flight{
  	xfly := new(Flight)
     xfly.Callsign = cffly.Callsign
     xfly.Model = cffly.Model
@@ -120,7 +120,7 @@ type AjaxFlight struct {
 //= Creates a new Flight from poisiton etc
 // TODO This will need to change to maybe returning a list of last x positions
 //      or other tricks required by a map or a radar interface, overview etc
-func NewAjaxFlight(xfly *XFlight) *AjaxFlight{
+func NewAjaxFlight(xfly *Flight) *AjaxFlight{
 	rec := new(AjaxFlight)
 	rec.Callsign = xfly.Callsign
 	rec.Model = xfly.Model

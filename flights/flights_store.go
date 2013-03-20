@@ -14,7 +14,7 @@ import (
 //= FlightsStore is the database for flights
 type FlightsStore struct {
 	n int 
-	Flights map[string]*XFlight  
+	Flights map[string]*Flight  
 	CfReplyChan chan crossfeed.CF_Reply // ?? help  not sure
 }
 
@@ -23,7 +23,7 @@ type FlightsStore struct {
 // NewFlightsStore creates an instance of FlightsStore
 func NewFlightsStore() *FlightsStore {
 	ob := new(FlightsStore)
-	ob.Flights =  make(map[string]*XFlight)
+	ob.Flights =  make(map[string]*Flight)
 	ob.CfReplyChan = make(chan crossfeed.CF_Reply) // HELP ?
 	return ob
 }
@@ -59,7 +59,7 @@ func (me *FlightsStore) StartCrossfeedTimer() {
 				
 				if !ok{
 					//= Flight not in map so create a new one
-					xfly = NewXFlight(cffly)
+					xfly = NewFlight(cffly)
     				//xfly.Callsign = cffly.Callsign
     				//xfly.Positions = make([]*XPos,0, HISTORY_MAX_POSITIONS)
 					me.Flights[cffly.Callsign] = xfly
