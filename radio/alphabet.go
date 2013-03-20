@@ -99,7 +99,7 @@ type AjaxRadioAlphabetPayload struct{
 // GetAjaxAlphabet()  returns a string with the encoded json payload
 // 
 // TODO - Help theres got be a way to make a "constant" variable global This feels wrong !!
-//  in this package? there must be a better way.. AND sorted keys BTW
+// in this package? there must be a better way.. AND sorted keys BTW
 func GetAjaxAlphabet() string{
 	payload := new(AjaxRadioAlphabetPayload)
 	payload.Success = true
@@ -122,7 +122,7 @@ func GetAjaxAlphabet() string{
 }
 
 
-// Returns a string with the words from a callsing eg BA19 returns "bravo alfa zero niner"
+// Returns a string with the words from a callsign eg BA19 returns "bravo alfa zero niner"
 func Callsign2Words  (callsign string) string {
 	
 
