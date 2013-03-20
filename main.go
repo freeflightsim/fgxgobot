@@ -33,7 +33,7 @@ func main() {
 	
 	//= HELP ? this is not working, even touch full path
 	// Am expection localhost:9999/static/REAME.txt to appear
-	http.Handle("/static/", http.FileServer(http.Dir("/home/daffodil/gogo/src/www/static")))
+	http.Handle("/", http.StripPrefix("/static/", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
 	
 	
 
@@ -45,7 +45,7 @@ func main() {
 	http.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
 	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
-	http.HandleFunc("/", www.HandleHomePage)
+	//http.HandleFunc("/", www.HandleHomePage)
 	
 	//http.HandleFunc("/crossfeed", crossfeed_handler)
     if err := http.ListenAndServe(":9999", nil); err != nil {
