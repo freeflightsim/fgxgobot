@@ -42,8 +42,9 @@ func (me *MpServersStore) StartDnsTimer() {
 }
 
 
-// DoDnsScan - Scans for Mp Servers with DNS range 1 - n
-// BUG(pete): these need to be fired off not all at once maybe intervals of 2 seconds
+// DoDnsScan() -  Starts a scans for Mp Servers with dns range 1 - MAX_MP_SERVERS
+// 
+// BUG(pete): these need to be fired off not all at once maybe intervals of a few seconds
 func (me *MpServersStore) DoDnsScan() {
 
 	fmt.Println(">> DoDnsScan")	
@@ -52,8 +53,9 @@ func (me *MpServersStore) DoDnsScan() {
 	}
 }
 
-// DnsLookupServer returns the ip address or error. 
-// It then creates or ppdates an MpServer object in the mpserver.MpServersStore
+
+// DnsLookupServer - lookup the ip address, and if it exists
+// t then creates or updates an MpServer object in the mpserver.MpServersStore
 //
 // BUG(pete): help -  is this the right way to do it in go ?
 func (me *MpServersStore) DnsLookupServer(no int) {

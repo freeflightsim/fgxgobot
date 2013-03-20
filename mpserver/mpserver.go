@@ -12,12 +12,12 @@ import (
 // Top level domain of mpnetwork
 const TLD = "flightgear.org"
 
-// Subdomain from no - zero padded eg "mpserver01"
+// Returns subdomain from a no - zero padded eg "mpserver01"
 func GetSubDomainName(no int) string {
 	return fmt.Sprintf("mpserver%02d", no) 
 }
 
-// Full server name from no eg "mpserver09.flightgear.org"
+// Returns the FQDN from a no eg "mpserver09.flightgear.org"
 func GetServerName(no int) string {
 	return fmt.Sprintf( "%s.%s", GetSubDomainName(no), TLD)
 }
@@ -38,7 +38,7 @@ const STATUS_IP string = "IP Exists"
 // The IP address exists and so does telnet
 const STATUS_TELNET string = "Telnet Ok"
 
-// We assume the server is up
+// Assume the server is up
 const STATUS_UP string = "Up"
 
 
