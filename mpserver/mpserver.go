@@ -24,11 +24,9 @@ func GetServerName(no int) string {
 
 
 //-------------------------------------------------------------
-//
-// MpServer Statuses
-//
-//
-// Unkown is at startup
+
+
+// Unknown is at startup
 const STATUS_UNKNOWN string = "Unknown" 
 
 // DNS entry was found
@@ -46,8 +44,7 @@ const STATUS_UP string = "Up"
 
 //-------------------------------------------------------------
 
-
-// MpServer is the record stores in the MpServersStore
+// MpServer is the object pointer  in the mpserver.MpServersStore
 type MpServer struct {
 	Status string  `json:"status"`
 	No int `json:"no"`
@@ -57,15 +54,16 @@ type MpServer struct {
 }
 
 
-//===========================================
-//== A Struct for spooling out with ajax
+//--------------------------------------------------------------------
+
+// A Struct for spooling out the mpserver payload in Ajax
 type AjaxMpServersPayload struct {
 	Success bool `json:"success"`
 	MpServers []*MpServer `json:"mpservers"`
 }
 
 
-// NewMpServer created an instance
+// Constucts and returns a new MpServer instance
 func NewMpServer() *MpServer {
 	return &MpServer{}
 }
