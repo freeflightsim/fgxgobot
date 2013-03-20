@@ -1,14 +1,15 @@
 /* 
 Package mpserver - The FlightGear Multiplayer Servers
 
-About fgms
+About FlightGear Multiplayer Server (fgms)
 
-The Mp Servers are instances of the "FlightGear Multiplayer Server" (fgms)
-	Newbie: http://wiki.flightgear.org/Howto:Multiplayer
-	Info:   http://wiki.flightgear.org/FlightGear_Multiplayer_Server
-	Code:   http://gitorious.org/fgms/fgms-0-x/trees/master
+The Mp Servers are running instances of fgms
 
-Pilots flying in the sim connect to a running instance on a server and speak
+* Newbie: http://wiki.flightgear.org/Howto:Multiplayer
+* Info:   http://wiki.flightgear.org/FlightGear_Multiplayer_Server
+* Code:   http://gitorious.org/fgms/fgms-0-x/trees/master
+
+Pilots flying in the fgfs connect to a running instance and speak
 to each other with udp packets
 
 These servers are named mpserver01.flightgear.org - mpserverXX.flightgear.org
