@@ -24,11 +24,22 @@ func GetServerName(no int) string {
 
 
 //-------------------------------------------------------------
-// The statuses of an MpServer
+
+// MpServer Statuses
+
+// Unkown is at startup
 const STATUS_UNKNOWN string = "Unknown" 
+
+// DNS entry was found
 const STATUS_DNS string = "Dns Found"
+
+// The IP Address exists - TODO for now its gonna be a telnet query
 const STATUS_IP string = "IP Exists"
+
+// The IP address exists and so does telnet
 const STATUS_TELNET string = "Telnet Ok"
+
+// We assume the server is up
 const STATUS_UP string = "Up"
 
 
