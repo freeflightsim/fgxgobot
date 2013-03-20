@@ -8,7 +8,7 @@ The client aqquires remote flight data from Geoff's CrossFeed fgx-cf
 The crossfeed is a listener to the USP network and converts 
 a snapshot to json serves via ajax requests 
 
-(see ../mpserver)
+(see fgxgobot.mpserver)
 see github.com/fgx/fgxgobot/mpserver
 
 	Feed:     http://crossfeed.fgx.ch/data
