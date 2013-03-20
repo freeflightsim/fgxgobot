@@ -9,11 +9,12 @@ import (
 )
 
 
-// The max no of servers to lookup in March 2013  there's 24 ish ?
+// The max dns to lookup 
 const MAX_DNS_SERVER = 30
 
 
 //--------------------------------------------------------------------
+
 // NewMpServersStore constructor
 func NewMpServersStore() *MpServersStore {
 	ob := new(MpServersStore)
@@ -41,8 +42,8 @@ func (me *MpServersStore) StartDnsTimer() {
 }
 
 
-//= DoDnsScan - Scans for Mp Servers with DNS range 1 - n
-// ? help ?- these need to be fired off not all at once maybe intervals of 2 seconds
+// DoDnsScan - Scans for Mp Servers with DNS range 1 - n
+// BUG(pete): these need to be fired off not all at once maybe intervals of 2 seconds
 func (me *MpServersStore) DoDnsScan() {
 
 	fmt.Println(">> DoDnsScan")	
