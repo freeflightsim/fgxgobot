@@ -1,3 +1,20 @@
+
+// Package crossfeed - Remote Client for crossfeed.fgx.ch
+/*
+
+The client aqquires remote flight data from Geoff's CrossFeed fgx-cf
+
+The crossfeed is a listener to the USP network and converts 
+a snapshot to json serves via ajax requests
+
+	Feed:     http://crossfeed.fgx.ch/data
+	Project:  http://fgx.ch/projects/fgx-cf
+	Code:     https://gitorious.org/fgtools/crossfeed
+
+Note: FGx replies with the Same Origin Policy * ie disabled
+
+
+/*
 package crossfeed
 
 import (
@@ -13,16 +30,7 @@ import (
 // The Crossfeed Client
 //======================================================
 
-//= Aqquire remote flight data from Geoff's CrossFeed fgx-cf
-// This data is aqquired with an ajax http request
-// The crossfeed the other end convert UDP state to json
-// 
-// Feed:     http://crossfeed.fgx.ch/data
-// Project:  http://fgx.ch/projects/fgx-cf
-// Code:     https://gitorious.org/fgtools/crossfeed
-// 
-//  Note: FGx replies with the Same Origin Policy * ie disabled
-//
+
   
 const FGX_CF_FLIGHTS_URL = "http://crsossfeed.fgx.ch/data"
 
