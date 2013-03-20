@@ -12,9 +12,10 @@ import (
 
 // No of positions to store
 // 
-//	TODO: this need to be a configurable online ? how
-// 		  so for now a constant
-//		  Defaut is 180 = 3 min track at 1 req per second
+// TODO: this need to be a configurable online ? how ?
+// so for now a constant. 
+//
+// Current Defaut is 180 = 3 min track at 1 req per second
 const HISTORY_MAX_POSITIONS = 180  
 
 
@@ -29,14 +30,14 @@ const HISTORY_MAX_POSITIONS = 180
 // (unless there is a better way)
 // 
 // TODO: The flight need some calculations based on positions 
-//  eg speed trend, vertical speed trend, distance traveled, lookahead etc
+// eg speed trend, vertical speed trend, distance traveled, lookahead etc
 type Flight struct {
 	Callsign string 
 	Model string  
 	Positions []*Pos 
 }
 
-// A Position
+// A Position with its Ts timestamp
 type Pos struct {
 	Lat float32 
 	Lon float32 
@@ -47,7 +48,7 @@ type Pos struct {
 }
 
 
-// UpdatePosition() -  inserts an item into the list of XFlights.Positions
+// UpdatePosition() -inserts an item into the list of Flight.Positions
 // but only if the position has changed ie not parked
 func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
 	
@@ -87,8 +88,7 @@ func (me *Flight) Position() *Pos{
 }
 
 
-//--------------------------------------------------------------------
-// NewXFlight() - constructs and returns a new Flight (created from a crossfeed.CF_Flight)
+// NewFlight() - constructs and returns a new Flight (created from the crossfeed.CF_Flight)
 func NewFlight(cffly crossfeed.CF_Flight) *Flight{
  	fly := new(Flight)
     fly.Callsign = cffly.Callsign

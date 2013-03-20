@@ -17,6 +17,7 @@ initComponent: function(){
 		model: "GB.model.Flight",
 		storeId: "stoFlights",
 		autoLoad: true,
+		pageSize: 100,
 		proxy: {
 			type: "ajax",
 			url: "/flights",
