@@ -2,11 +2,15 @@
 // Use of this source code is governed by the GPL Licence
 // license that can be found in the LICENSE file.
 
-/*
-FGx Go Bot ! 
+/* Package main FGx Go Bot!
 
-An experimental FG Multi Player Network Bot written in Go (http://golang.org)
+	==============================================================================
+	FGx Go Bot ! 
+	==============================================================================
+	
+	An experimental FG Multi Player Network Bot written in Go (http://golang.org)
 
+	
 
 */
 package main
