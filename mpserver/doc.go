@@ -23,5 +23,6 @@ Package mpserver - The FlightGear Multiplayer Servers
 	* port 5001 - is the admin port this returns info on state
 	              eg telnet mpserver14.flightgear.org 5001
 	* crossfeed - these are udp packets "crossfeed" to another channel eg 5555
+	              Note: this is what the crossfeed package does
 */
 package mpserver
