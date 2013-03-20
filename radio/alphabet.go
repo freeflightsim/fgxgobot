@@ -96,7 +96,7 @@ type AjaxRadioAlphabetPayload struct{
 	Alphabet[] *Alpha `json:"alphabet"`
 }
 
-var cAjaxPayload *AjaxRadioAlphabetPayload 
+var cAjaxAlphabetPayload *AjaxRadioAlphabetPayload 
 
 // GetAjaxAlphabet()  returns a string with the encoded json payload
 // 
@@ -143,4 +143,24 @@ func Callsign2Words  (callsign string) string {
 	}	
 	final_str := strings.Join(words, " ")	
 	return final_str
+}
+
+
+
+// Struct for replying Callsign2Words
+type AjaxCallsign2WordsPayload struct {
+	Success bool `json:"success"`
+	Callsign string `json:"callsign"`
+	Words string `json:"words"`
+}
+
+func GetAjaxCallsign2Words(callsign string) string{
+	payload := new(AjaxCallsign2WordsPayload)
+	payload.Success = true
+	payload.Callsign = callsign
+	payload.Words = Callsign2Words(callsign)
+
+ 	s, _ := json.MarshalIndent(payload, "" , "  ")
+
+    return string(s)
 }
