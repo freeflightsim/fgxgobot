@@ -1,9 +1,9 @@
 /*
 Package xstate - Contains the "StateMachine" Object, and is the global instance
 
-	This is the main data store in memory for the application
-	Upon startup with  NewStateMachine()
-	A global instance of xstate.GStateMachine is available
+This is the main data store in memory for the application
+
+A global instance of xstate.GStateMachine is Created on startup with  NewStateMachine()
 
 */
 package xstate
