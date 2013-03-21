@@ -7,14 +7,14 @@ import (
     "net/http"
 )
 import (   
-  //	"code.google.com/p/go.net/websocket"
 	
   	"github.com/gorilla/mux"
   
+   	"code.google.com/p/go.net/websocket" 	
+   	
     "github.com/fgx/fgxgobot/www"
     "github.com/fgx/fgxgobot/xstate"
-   	
-   	//"xwebsocket"
+    "github.com/fgx/fgxgobot/xwebsocket"
 )
 
 
@@ -31,18 +31,15 @@ func main() {
 	
 	gsm.Start()
 
-
+	go xwebsocket.WsHubb.Run()
 	
 
 	router := mux.NewRouter()
-	//router.Methods("GET", "POST")
-	
-	//= HELP ? this is not working, even touch full path
-	// Am expection localhost:9999/static/REAME.txt to appear
-	
 	
 	//router.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
 	router.PathPrefix("/static/").Handler( http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static"))) )
+
+	http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
 
 	router.HandleFunc("/flights", www.Ajax_flights)
 	router.HandleFunc("/flight/{callsign}", www.Ajax_flight)
@@ -53,7 +50,7 @@ func main() {
 	router.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)
 	router.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
-	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
+	
 	router.HandleFunc("/dynamic.css", www.Style_dynamic_css)
 	http.Handle("/", router)
 	

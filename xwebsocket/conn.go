@@ -25,7 +25,7 @@ func (c *WsConnection) Reader() {
 		if err != nil {
 			break
 		}
-		Hubb.broadcast <- message
+		WsHubb.broadcast <- message
 	}
 	c.ws.Close()
 }
@@ -42,8 +42,8 @@ func (c *WsConnection) Writer() {
  
 func WsHandler(ws *websocket.Conn) {
 	c := &WsConnection{send: make(chan string, 256), ws: ws}
-	Hubb.register <- c
-	defer func() { Hubb.unregister <- c }()
+	WsHubb.register <- c
+	defer func() { WsHubb.unregister <- c }()
 	go c.Writer()
 	c.Reader()
 }

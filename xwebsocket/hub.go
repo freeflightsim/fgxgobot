@@ -48,15 +48,13 @@ func GetHub() *Hub {
 }
 */
  
-var Hubb = Hub{
+var WsHubb = Hub{
 	broadcast:   make(chan string),
 	register:    make(chan *WsConnection),
 	unregister:  make(chan *WsConnection),
 	connections: make(map[*WsConnection]bool),
 }
-func DEADGetHubb() Hub{
-	return Hubb
-}
+
 
 
 func (h *Hub) Run() {

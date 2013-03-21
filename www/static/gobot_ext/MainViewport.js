@@ -52,6 +52,26 @@ initComponent: function(){
 	Ext.getStore("stoMpServers").sort("subdomain", "ASC");
 	
 	
+	
+	// Ws Store
+	Ext.create("Ext.data.Store", {
+		model: "GB.model.WebSockMess",
+		storeId: "stoWebSockMess",
+		//autoLoad: true,
+		pageSize: 100,
+		//proxy: {
+			//type: "ajax",
+			//url: "/flights",
+			//reader: {
+			//	type: 'json',
+			//	root: 'flights',
+				//idProperty: 'callsign' // later FID ?
+			//}
+		//}
+	});
+	//Ext.getStore("stoFlights").sort("callsign", "ASC");
+	
+	
 	//==== MainViewport for app ===
 	Ext.apply(this, {
 		layout: 'border',
@@ -116,13 +136,31 @@ initComponent: function(){
 	
 },
 
+//=========================================================
 ws: function(){
 	console.log("viewport.ws()", this.webSock);
 	if( !this.webSock && "WebSocket" in window){
 		console.log("MAKE websock");
+		
+		var Vp = Ext.getCmp("main_viewport");
 		this.webSock = new WebSocket(WS_URL);
+		this.ws_add_log("Created", "New Ws Creted")
+		this.webSock.onclose = function(evt) {
+            //appendLog($("<div><b>Connection closed.</b></div>"))
+            this.ws_add_log("Close", "Close event");
+        }
+        this.webSock.onmessage = function(evt) {
+            console.log(">> ws >>", evt.data);
+			Vp.ws_add_log("Mess", evt.data);
+        }
+        
 	}
 	return this.webSock;
+},
+
+ws_add_log: function(status, mess){
+	console.log("add_log", status, mess);
+	Ext.getStore("stoWebSockMess").add( {status: status, msg: mess, ts: new Date()} );
 }
 	
 	

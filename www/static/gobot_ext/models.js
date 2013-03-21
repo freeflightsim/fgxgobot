@@ -59,3 +59,13 @@ Ext.define('GB.model.Position', {
 		{name: 'ts', type: 'int', sortType: "asInt"}
     ]
 });
+
+//== Flight Model
+Ext.define('GB.model.WebSockMess', {
+    extend: 'Ext.data.Model',
+    fields: [
+        {name: 'msg',  type: 'string', sortType: "asText"},
+        {name: 'ts',  type: 'date'},
+		{name: 'status',  type: 'string', sortType: "asUCText"}
+    ]
+});
