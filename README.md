@@ -1,6 +1,7 @@
 FGx Go Bot!
 ===========
-An experimental FG Multi Player Network Bot written in Go (http://golang.org)
+
+Is experimental FG Multi Player Network Bot written in Go (http://golang.org)
 - provides ajax feeds of mpstatus, flights and tracks 
 - Send data with websockets
 - and other experiments in tracker, handling callsigns and navdata
