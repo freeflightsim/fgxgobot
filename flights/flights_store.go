@@ -49,7 +49,9 @@ func (me *FlightsStore) StartCrossfeedTimer() {
 			fmt.Println("  << Reply from cf: flights =", len(reply.Flights) ) 
 			
 			// get the date (source = "last_updated":"2013-03-18 21:33:43")
-			ts, _ := time.Parse("2006-01-02 15:04:05", reply.LastUpdated )
+			tsp, _ := time.Parse("2006-01-02 15:04:05", reply.LastUpdated )
+			
+			ts :=  tsp.Unix()
 			
 			for _, cffly := range reply.Flights{
 				
@@ -65,7 +67,7 @@ func (me *FlightsStore) StartCrossfeedTimer() {
 					me.Flights[cffly.Callsign] = xfly
 				}
 				
-				xfly.UpdatePosition(cffly, ts.Unix() )  // Update this flights position
+				xfly.UpdatePosition(cffly, ts )  // Update this flights position
 			}
 		}
 	}()
@@ -113,9 +115,8 @@ func (me *FlightsStore) GetAjaxFlightPayload(callsign string) string {
     }else{
     	pay.Positions = F.Positions
 		first_ts := pay.Positions[0].Ts
-    	for idx, ele := range pay.Positions{
+    	for _, ele := range pay.Positions{
     		ele.Elapsed = ele.Ts - first_ts
-    		
     	}
         
 	}

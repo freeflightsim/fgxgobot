@@ -43,6 +43,6 @@ Ext.define('GB.model.Position', {
         {name: 'lon',   type: 'string'},
         {name: 'alt_ft', type: 'int', sortType: "asInt"},
         {name: 'spd_kt', type: 'int', sortType: "asInt"},
-		{name: 'ts', type: 'date'}
+		{name: 'ts', type: 'int', sortType: "asInt"}
     ]
 });

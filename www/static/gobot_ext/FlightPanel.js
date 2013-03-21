@@ -19,7 +19,7 @@ initComponent: function(){
 		pageSize: 1000,
 		autoLoad: true
 	});
-	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("idx", "DESC");
+	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("elapsed", "DESC");
 	
 	//var Dt = new Date()
 	//var rStart = Ext.Date.add(Dt, Ext.Date.MINUTE, -10);
@@ -33,16 +33,17 @@ initComponent: function(){
 			{xtype: "container", region: "center", flex: 3, 
 				layout: {type: "border"}, ssheight: 600, title: "Charts",
 				items: [
+					Ext.create("GB.FlightSpeedChart", {
+						flex: 1, ssheight: 200, region: "center",
+						//x_store_id: 'stoFlight-' + this.Flight.callsign
+						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
+					}),
 					Ext.create("GB.FlightAltitudeChart", {
-						ssflex: 1, height: 200, region: "north",
+						flex: 2, ssheight: 200, region: "north",
 						//x_store_id: 'stoFlight-' + this.Flight.callsign
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
 					}),
-		   			Ext.create("GB.FlightSpeedChart", {
-						ssflex: 1, height: 200, region: "center",
-						//x_store_id: 'stoFlight-' + this.Flight.callsign
-						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
-					}),
+		   			
 					/*Ext.create('Ext.chart.Chart', {
 						flex: 1,
 						xtype: 'chart',
@@ -110,12 +111,6 @@ initComponent: function(){
 						} 
 						]
 					}), */  //= End chart
-					//{xtype: "panel", title: "foo", flex: 2, layout: "fit"}
-					//Ext.create("GB.FlightAltitudeChart", {
-					//	flex: 1, 
-					//	//x_store_id: 'stoFlight-' + this.Flight.callsign
-					//	//store: Ext.getStore('stoFlight-' + this.Flight.callsign)
-					//})
 				]
 			},
 		
@@ -125,8 +120,8 @@ initComponent: function(){
 				region: "east",
 				store: Ext.getStore('stoFlight-' + this.Flight.callsign),
 				columns: [
-					{text: 'Idx', dataIndex: 'idx', menuDisabled: true},
-					{text: 'Ts', dataIndex: 'ts', xtype: 'datecolumn', format:'H:i:s', menuDisabled: true},
+					{text: 'Elap', dataIndex: 'elapsed', menuDisabled: true, width: 50},
+					//{text: 'Ts', dataIndex: 'ts', xtype: 'datecolumn', format:'H:i:s', menuDisabled: true},
 					{text: 'Alt Ft',  dataIndex: 'alt_ft', flex: 1, menuDisabled: true, align:"right"},
 					{text: 'Spd Kt', dataIndex: 'spd_kt', flex: 1, menuDisabled: true, align:"right"},
 					{text: 'Lat', dataIndex: 'lat', flex: 1, menuDisabled: true},

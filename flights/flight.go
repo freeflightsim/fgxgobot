@@ -18,7 +18,7 @@ import (
 // so for now a constant. 
 //
 // Current Defaut is 180 = 3 min track at 1 req per second
-const HISTORY_MAX_POSITIONS = 180  
+const HISTORY_MAX_POSITIONS = 500  
 
 
 
@@ -47,14 +47,14 @@ type Pos struct {
 	HdgT int  `json:"hdg_t"`
 	AltFt int  `json:"alt_ft"`
 	SpdKt int  `json:"spd_kt"`
-	Ts int32 `json:"ts"`
-	Elapsed int32   `json:"elapsed"`
+	Ts int64 `json:"ts"`
+	Elapsed int64   `json:"elapsed"`
 }
 
 
 // UpdatePosition() -inserts an item into the list of Flight.Positions
 // but only if the position has changed ie not parked
-func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts int32){
+func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts int64){
 	
 	// Check if this position same as last position
 	if len(me.Positions) > 1 {
@@ -137,7 +137,7 @@ type AjaxFlight struct {
 	AltFt int `json:"alt_ft"`
 	SpdKt int `json:"spd_kt"`
 	HdgT int  `json:"hdg_t"`
-	Ts int32 `json:"ts"`  
+	Ts int64 `json:"ts"`  
 	PositionsCount int `json:"positions_count"`
 }
 

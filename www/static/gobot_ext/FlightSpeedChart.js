@@ -10,15 +10,15 @@ initComponent: function(){
 		//store: Ext.getStore(this.x_store_id),
 		shadow: true,
 		theme: 'Category1',
-		legend: {
-			position: 'right'
-		},
+		//legend: {
+		//	position: 'right'
+		//},
 		axes: [
 			{type: 'Numeric',
 				minimum: 0,
 				position: 'left',
 				fields: ['spd_kt'],
-				title: 'Speed',
+				title: 'Speed Kt',
 				minorTickSteps: 1,
 				grid: {
 					odd: {
@@ -31,9 +31,10 @@ initComponent: function(){
 			}, 
 		   {type: 'Category',
 				position: 'bottom',
-				fields: ['idx'],
-				title: 'Positions',
-				step: 1
+				fields: ['elapsed'],
+				title: 'Elapsed',
+				//minorTickSteps: 60,
+				//majorTickSteps: 100	
 			}
 		],
 		series: [
@@ -43,13 +44,14 @@ initComponent: function(){
 					radius: 7
 				},
 				axis: 'left',
-				xField: 'idx',
+				xField: 'elapsed',
 				yField: 'spd_kt',
 				markerConfig: {
-					type: 'cross',
-					size: 4,
-					radius: 4,
-					'stroke-width': 0
+					type: 'circle',
+					size: 2,
+					radius: 2,
+					'stroke-width': 0,
+					fill: "#0F0"
 				}
 			}
 		]

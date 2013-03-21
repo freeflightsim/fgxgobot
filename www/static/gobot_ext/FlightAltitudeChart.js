@@ -10,15 +10,15 @@ initComponent: function(){
 		//store: Ext.getStore(this.x_store_id),
 		shadow: true,
 		theme: 'Category1',
-		legend: {
-			position: 'right'
-		},
+		//legend: {
+		//	position: 'right'
+		//},
 		axes: [
 			{type: 'Numeric',
 				minimum: 0,
 				position: 'left',
 				fields: ['alt_ft'],
-				title: 'Altitude',
+				title: 'Altitude ',
 				minorTickSteps: 1,
 				grid: {
 					odd: {
@@ -31,8 +31,8 @@ initComponent: function(){
 			}, 
 		   {type: 'Category',
 				position: 'bottom',
-				fields: ['idx'],
-				title: 'Positions',
+				fields: ['elapsed'],
+				title: 'Elapsed',
 				step: 1
 			}
 		],
@@ -43,12 +43,13 @@ initComponent: function(){
 					radius: 7
 				},
 				axis: 'left',
-				xField: 'idx',
+				xField: 'elapsed',
 				yField: 'alt_ft',
+				//showMarkers: false,
 				markerConfig: {
-					type: 'cross',
-					size: 4,
-					radius: 4,
+					type: 'circle',
+					size: 2,
+					radius: 2,
 					'stroke-width': 0
 				}
 			}
