@@ -1,4 +1,6 @@
 
+var WS_URL = "ws://localhost:9999/ws";
+
 //== Flight Model
 Ext.define('GB.model.Alphabet', {
     extend: 'Ext.data.Model',

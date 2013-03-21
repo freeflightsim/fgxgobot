@@ -5,7 +5,11 @@ extend: "Ext.container.Viewport",
 //= Refresh flight stuff
 refresh_rate: 0,
 runner:  Ext.create("Ext.util.TaskRunner", {}),
-		   
+
+id: "main_viewport",
+
+webSock: null,
+
 
 initComponent: function(){
 	
@@ -56,17 +60,20 @@ initComponent: function(){
 			{xtype: "tabpanel", region: "center", x_name: "tab_panel", 
 				header: false, 
 				items: [
-				
+					//== Flights Tab
+					Ext.create("GB.dev.DevPanel", {
+						x_name: "dev_panel"
+					}),
 					//== Flights Tab
 					Ext.create("GB.flights.FlightsPanel", {
 						x_name: "flights_panel"
 					}),
 					//== MpServers Tab
-					Ext.create("GB.mpservers.MpServersPanel", {
-					}),
+					//Ext.create("GB.mpservers.MpServersPanel", {
+					//}),
 					//== Radio Tab
-					Ext.create("GB.radio.RadioPanel", {
-					})
+					//Ext.create("GB.radio.RadioPanel", {
+					//})
 					
 				]
 			}//= center tabs
@@ -107,6 +114,15 @@ initComponent: function(){
 		tabPanel.setActiveTab(d);
 	}, this);
 	
+},
+
+ws: function(){
+	console.log("viewport.ws()", this.webSock);
+	if( !this.webSock && "WebSocket" in window){
+		console.log("MAKE websock");
+		this.webSock = new WebSocket(WS_URL);
+	}
+	return this.webSock;
 }
 	
 	

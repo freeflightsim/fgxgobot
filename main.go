@@ -54,6 +54,7 @@ func main() {
 	router.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
 	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
+	router.HandleFunc("/dynamic.css", www.Style_dynamic_css)
 	http.Handle("/", router)
 	
 	//http.HandleFunc("/crossfeed", crossfeed_handler)
