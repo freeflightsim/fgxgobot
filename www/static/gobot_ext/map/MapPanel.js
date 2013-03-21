@@ -6,6 +6,8 @@ Ext.define("GB.map.MapPanel", {
 extend: "GeoExt.panel.Map", 
 
 L: {},	
+last_pos: null,
+
 //===========================================================
 initComponent: function() {
 	
@@ -134,9 +136,20 @@ initComponent: function() {
 
 get_toolbar: function(){
 	var a = [];
-	a.push({text: "Zoom Track", handler: this.on_zoom_track, scope: this});
-	a.push({text: "Zoom Curr", handler: this.on_zoom_curr, scope: this});
-	a.push({text: "Zoom Close", handler: this.on_zoom_close, scope: this});
+	a.push({
+            xtype: 'buttongroup',
+            title: 'Tracking',
+            columns: 4,
+            defaults: {
+                scale: 'small'
+            },
+            items: [
+				{text: "None", toggleHandler: this.on_zoom_track, scope: this, zoo: "none", enableToggle: true, toggleGroup: "zoom", pressed: true},
+				{text: "Zoom Track", toggleHandler: this.on_zoom_track, scope: this, zoo: "track", enableToggle: true, toggleGroup: "zoom"},
+				{text: "Zoom Curr", toggleHandler: this.on_zoom_track, scope: this, zoo: "curr", enableToggle: true, toggleGroup: "zoom"},
+				{text: "Zoom Close", toggleHandler: this.on_zoom_track, scope: this, zoo: "close", enableToggle: true, toggleGroup: "zoom"}
+			]
+	});
 	return a;
 },
 
@@ -145,11 +158,23 @@ set_base_layer: function(layer_name){
 	this.map.setBaseLayer( layer );
 },
 
-
-pan_to: function(obj){
+on_zoom_track: function(butt, checked){
+	console.log(butt.text, butt.zoo, checked);
+	//this.last_pos
+	
+},
+on_zoom_curr: function(butt){
+	console.log(butt.text);
+	this.pan_to(this.last_pos, 10)
+},
+on_zoom_close: function(butt){
+	console.log(butt.text);
+	this.pan_to(this.last_pos, 15)
+},
+pan_to: function(obj, zoom){
 	var lonLat = new OpenLayers.LonLat(obj.lon, obj.lat
 			).transform(new OpenLayers.Projection("EPSG:4326"),  this.map.getProjectionObject() );
-	this.map.setCenter(lonLat, 10);
+	this.map.setCenter(lonLat, zoom);
 	
 },
 
@@ -198,6 +223,7 @@ show_flight: function(fly){
 	this.L.radarLbl.removeAllFeatures();
 
 	var r = fly.positions[ fly.positions.length - 1];
+	this.last_pos = r;
 	console.log("show_flight", r, fly);
 	//var rec_len = recs.length;
 	//for(i=0; i < rec_len; i++){

@@ -1,4 +1,15 @@
 
+//== Flight Model
+Ext.define('GB.model.Alphabet', {
+    extend: 'Ext.data.Model',
+    fields: [
+        {name: 'char',  type: 'string', sortType: "asText"},
+        {name: 'word',  type: 'string', sortType: "asUCText"},
+		{name: 'phonetic',  type: 'string', sortType: "asUCText"},
+		{name: 'morse',  type: 'string'}
+    ]
+});
+
 
 //== Flight Model
 Ext.define('GB.model.Flight', {

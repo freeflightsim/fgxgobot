@@ -63,6 +63,9 @@ initComponent: function(){
 					}),
 					//== MpServers Tab
 					Ext.create("GB.mpservers.MpServersPanel", {
+					}),
+					//== Radio Tab
+					Ext.create("GB.radio.RadioPanel", {
 					})
 					
 				]
