@@ -2,7 +2,10 @@ Ext.define("GB.FlightPanel", {
 	
 extend: "Ext.panel.Panel",
 
-
+//= Refresh flight stuff
+refresh_rate: 5,
+runner:  Ext.create("Ext.util.TaskRunner", {}),
+		   
 initComponent: function(){
 	
 	Ext.create('Ext.data.Store', {
@@ -17,9 +20,9 @@ initComponent: function(){
 			}
 		},
 		pageSize: 1000,
-		autoLoad: true
+		autoLoad: false
 	});
-	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("elapsed", "DESC");
+	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("elapsed", "ASC");
 	
 	//var Dt = new Date()
 	//var rStart = Ext.Date.add(Dt, Ext.Date.MINUTE, -10);
@@ -29,18 +32,35 @@ initComponent: function(){
 		border: false, frame: false,
 		layout: "border",
 		items: [
-			{xtype: "fieldset", title: "Info", region: "north"},
+			{xtype: "container", region: "north", layout: "hbox", 
+				padding: 5, defaults: {margin: 2, padding: 0},
+				items: [
+					{xtype: "fieldset", title: "Heading", flex: 1,
+						items: [
+							{xtype: "displayfield", hideLabel: true, name: "hdg_t", value: 0}
+						]
+					},
+					{xtype: "fieldset", title: "Altitude Ft", flex: 1,
+						items: [
+							{xtype: "displayfield", hideLabel: true, name: "alt_ft", value: 0}
+						]
+					},
+					{xtype: "fieldset", title: "Speed Kt", flex: 1,
+						items: [
+							{xtype: "displayfield", hideLabel: true, name: "spd_kt", value: 0}
+						]
+					}
+				]
+			},
 			{xtype: "container", region: "center", flex: 3, 
 				layout: {type: "border"}, ssheight: 600, title: "Charts",
 				items: [
 					Ext.create("GB.FlightSpeedChart", {
-						flex: 1, ssheight: 200, region: "center",
-						//x_store_id: 'stoFlight-' + this.Flight.callsign
+						flex: 1,  region: "center",
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
 					}),
 					Ext.create("GB.FlightAltitudeChart", {
-						flex: 2, ssheight: 200, region: "north",
-						//x_store_id: 'stoFlight-' + this.Flight.callsign
+						flex: 2,  region: "north",
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
 					}),
 		   			
@@ -117,7 +137,7 @@ initComponent: function(){
 			//= Positions Grid
 			Ext.create('Ext.grid.Panel', {
 				title: 'Positions', flex: 1,
-				region: "east",
+				region: "east", width: 300,
 				store: Ext.getStore('stoFlight-' + this.Flight.callsign),
 				columns: [
 					{text: 'Elap', dataIndex: 'elapsed', menuDisabled: true, width: 50},
@@ -139,26 +159,40 @@ initComponent: function(){
 	});
 	this.callParent();
 	
+	this.runner.start({
+		interval: this.refresh_rate * 1000,
+		run: function(){
+			this.fetch_data();
+		},
+		scope: this		
+	});
 	
 },
 
-fetch_data: function(callsign){
-	this.callsign = "29Delta"
+fetch_data: function(){
+	console.log("fetch data");
 	Ext.Ajax.request({
 		scope: this, 
-		url : "/flight/" + this.callsign,
+		url : "/flight/" + this.Flight.callsign,
 		params: {
 			
 		},
 		method: 'GET',
+		scope: this,
 		success: function(resp){	
 			var data = Ext.decode(resp.responseText);
 
-			console.log(data);
-			this.fireEvent("FLIGHT", data);
+			//console.log(data);
+			Ext.getStore('stoFlight-' + this.Flight.callsign).loadData(data.positions);
+			var last = data.positions[ data.positions.length - 1];
+			//console.log("last", last);
+			this.down("[name=hdg_t]").setValue(last.hdg_t);
+			this.down("[name=alt_ft]").setValue(last.alt_ft);
+			this.down("[name=spd_kt]").setValue(last.spd_kt);
+			//this.fireEvent("FLIGHT", data);
 		},
 		failure: function(resp){
-			G2.msg("OOP", "Failed");
+			//console.log("OOP", "Failed");
 		}
 	});
 }
