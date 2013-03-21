@@ -1,4 +1,4 @@
-Ext.define("GB.FlightSpeedChart", {
+Ext.define("GB.flight.FlightSpeedChart", {
 	
 extend: "Ext.chart.Chart", 
 

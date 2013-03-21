@@ -1,4 +1,4 @@
-Ext.define("GB.FlightPanel", {
+Ext.define("GB.flight.FlightPanel", {
 	
 extend: "Ext.panel.Panel",
 
@@ -47,6 +47,16 @@ initComponent: function(){
 						items: [
 							{xtype: "displayfield", hideLabel: true, c_name: "spd_kt", value: 0}
 						]
+					},
+		   			{xtype: "fieldset", title: "Lat", flex: 1,
+						items: [
+							{xtype: "displayfield", hideLabel: true, c_name: "lat", value: 0}
+						]
+					},
+		   			{xtype: "fieldset", title: "Lon", flex: 1,
+						items: [
+							{xtype: "displayfield", hideLabel: true, c_name: "lon", value: 0}
+						]
 					}
 				]
 			},
@@ -59,17 +69,20 @@ initComponent: function(){
 				],
 				layout: {type: "border"}, 
 				items: [
-					Ext.create("GB.FlightSpeedChart", {
+					Ext.create("GB.flight.FlightSpeedChart", {
 						flex: 1,  region: "center",
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
 					}),
-					Ext.create("GB.FlightAltitudeChart", {
+					Ext.create("GB.flight.FlightAltitudeChart", {
 						flex: 2,  region: "north",
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
 					})
 				]
 			},
-		
+			Ext.create("GB.map.MapPanel", {
+				region: "east", flex: 2,  x_name: "map_panel"
+				//x_store_id: 'stoFlight-' + this.Flight.callsign
+			})
 			//= Positions Grid
 			/*
 			Ext.create('Ext.grid.Panel', {
@@ -123,13 +136,16 @@ fetch_data: function(){
 			var poss = data.flight.positions;
 			Ext.getStore('stoFlight-' + this.Flight.callsign).loadData(poss);
 			var last = poss[ poss.length - 1];
-			//console.log("last", last);
-			this.down("[c_name=callsign_words]").setTitle(data.flight.callsign_words);
+			console.log("last", last);
+			//this.down("[c_name=callsign_words]").setTitle(data.flight.callsign_words);
 			
 			this.down("[c_name=hdg_t]").setValue(last.hdg_t);
 			this.down("[c_name=alt_ft]").setValue(last.alt_ft);
 			this.down("[c_name=spd_kt]").setValue(last.spd_kt);
-			//this.fireEvent("FLIGHT", data);
+			this.down("[c_name=lat]").setValue(last.lat);
+			this.down("[c_name=lon]").setValue(last.lon);
+			this.down("[x_name=map_panel]").show_flight(data.flight);
+			
 		},
 		failure: function(resp){
 			//console.log("OOP", "Failed");

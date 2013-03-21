@@ -1,4 +1,4 @@
-Ext.define("GB.FlightsGrid", {
+Ext.define("GB.flights.FlightsGrid", {
 	
 extend: "Ext.grid.Panel", 
 
@@ -17,17 +17,17 @@ initComponent: function(){
 					return v;
 				}
 			},
-			{text: 'Radio', dataIndex: 'callsign_words', flex: 2, align: "left", menuDisabled: true},
-			{text: 'Aero', dataIndex: 'aero', width: 80, align: "left", menuDisabled: true},
+			{text: 'Radio', dataIndex: 'callsign_words', flex: 2, align: "left", menuDisabled: true, hidden: true},
+			{text: 'Aero', dataIndex: 'aero', flex: 1, align: "left", menuDisabled: true},
 			
 			{text: 'Alt Ft', dataIndex: 'alt_ft', width: 60, align: "right", menuDisabled: true},
 			{text: 'Spd Kt', dataIndex: 'spd_kt', width: 50, align: "right", menuDisabled: true},
 			{text: 'Hdg T', dataIndex: 'hdg_t', width: 50, align: "right", menuDisabled: true},
 		   
-			{text: 'Lat', dataIndex: 'lat', width: 80, align: "right", menuDisabled: true},
-			{text: 'Lon', dataIndex: 'lon', width: 80, align: "right", menuDisabled: true},
+			{text: 'Lat', dataIndex: 'lat', width: 80, align: "right", menuDisabled: true, hidden: true},
+			{text: 'Lon', dataIndex: 'lon', width: 80, align: "right", menuDisabled: true, hidden: true}
 		   
-			{text: 'Pos', dataIndex: 'positions_count', width: 30, align: "right", menuDisabled: true},
+			//{text: 'Pos', dataIndex: 'positions_count', width: 30, align: "right", menuDisabled: true, hidden: true},
 			
 		],
 		dockedItems: [

@@ -58,12 +58,11 @@ initComponent: function(){
 				items: [
 				
 					//== Flights Tab
-					Ext.create("GB.FlightsPanel", {
+					Ext.create("GB.flights.FlightsPanel", {
 						x_name: "flights_panel"
 					}),
 					//== MpServers Tab
-					Ext.create("GB.MpServersPanel", {
-						DEADtitle: "Mp Servers"
+					Ext.create("GB.mpservers.MpServersPanel", {
 					})
 					
 				]
@@ -97,7 +96,7 @@ initComponent: function(){
 	// Setup trigger of toolbar button to the runner
 	this.down("[x_name=flights_panel]").on("OPEN_FLIGHT", function(fly){
 		console.log("MainVireport.OPEN_FLIGHT", fly);
-		var d = Ext.create("GB.FlightPanel", {
+		var d = Ext.create("GB.flight.FlightPanel", {
 			Flight: fly, title: fly.callsign, closable: true
 		});
 		var tabPanel = this.down("[x_name=tab_panel]");

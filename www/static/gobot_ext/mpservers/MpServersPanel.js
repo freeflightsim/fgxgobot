@@ -1,4 +1,4 @@
-Ext.define("GB.MpServersPanel", {
+Ext.define("GB.mpservers.MpServersPanel", {
 	
 extend: "Ext.grid.Panel", 
 

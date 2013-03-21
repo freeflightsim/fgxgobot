@@ -1,4 +1,4 @@
-Ext.define("GB.FlightAltitudeChart", {
+Ext.define("GB.flight.FlightAltitudeChart", {
 	
 extend: "Ext.chart.Chart", 
 
@@ -6,9 +6,9 @@ initComponent: function(){
 	
 	Ext.apply(this, {
 		style: 'background:#fff',
-		animate: true,
+		animate: false,
 		//store: Ext.getStore(this.x_store_id),
-		shadow: true,
+		shadow: false,
 		theme: 'Category1',
 		//legend: {
 		//	position: 'right'

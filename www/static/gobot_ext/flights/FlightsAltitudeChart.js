@@ -1,4 +1,4 @@
- Ext.define("GB.FlightsAltitudeChart", {
+ Ext.define("GB.flights.FlightsAltitudeChart", {
 	
 extend: "Ext.chart.Chart", 
 
