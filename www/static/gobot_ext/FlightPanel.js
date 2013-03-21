@@ -19,18 +19,113 @@ initComponent: function(){
 		pageSize: 1000,
 		autoLoad: true
 	});
-	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("ts", "DESC");
+	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("idx", "DESC");
 	
-	
+	//var Dt = new Date()
+	//var rStart = Ext.Date.add(Dt, Ext.Date.MINUTE, -10);
+	//var rEnd = Ext.Date.add(Dt, Ext.Date.MINUTE, 10);
+	//console.log(Dt, rStart, rEnd);
 	Ext.apply(this, {
 		border: false, frame: false,
 		layout: "border",
 		items: [
+			{xtype: "fieldset", title: "Info", region: "north"},
+			{xtype: "container", region: "center", flex: 3, 
+				layout: {type: "border"}, ssheight: 600, title: "Charts",
+				items: [
+					Ext.create("GB.FlightAltitudeChart", {
+						ssflex: 1, height: 200, region: "north",
+						//x_store_id: 'stoFlight-' + this.Flight.callsign
+						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
+					}),
+		   			Ext.create("GB.FlightSpeedChart", {
+						ssflex: 1, height: 200, region: "center",
+						//x_store_id: 'stoFlight-' + this.Flight.callsign
+						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
+					}),
+					/*Ext.create('Ext.chart.Chart', {
+						flex: 1,
+						xtype: 'chart',
+						style: 'background:#fff',
+						animate: true,
+						store: Ext.getStore('stoFlight-' + this.Flight.callsign),
+						shadow: true,
+						theme: 'Category1',
+						legend: {
+							position: 'right'
+						},
+						axes: [{
+							type: 'Numeric',
+							minimum: 0,
+							position: 'left',
+							fields: ['alt_ft', 'speed_kt'],
+							title: 'Number of Hits',
+							minorTickSteps: 1,
+							grid: {
+								odd: {
+									opacity: 1,
+									fill: '#ddd',
+									stroke: '#bbb',
+									'stroke-width': 0.5
+								}
+							}
+						}, {
+							type: 'Category',
+							position: 'bottom',
+							fields: ['idx'],
+							title: 'Positions',
+							step: 1
+						}],
+						series: [{
+							type: 'line',
+							highlight: {
+								size: 7,
+								radius: 7
+							},
+							axis: 'left',
+							xField: 'idx',
+							yField: 'alt_ft',
+							markerConfig: {
+								type: 'cross',
+								size: 4,
+								radius: 4,
+								'stroke-width': 0
+							}
+						}, {
+							type: 'line',
+							highlight: {
+								size: 7,
+								radius: 7
+							},
+							axis: 'left',
+							smooth: true,
+							xField: 'idx',
+							yField: 'spd_kt',
+							markerConfig: {
+								type: 'circle',
+								size: 4,
+								radius: 4,
+								'stroke-width': 0
+							}
+						} 
+						]
+					}), */  //= End chart
+					//{xtype: "panel", title: "foo", flex: 2, layout: "fit"}
+					//Ext.create("GB.FlightAltitudeChart", {
+					//	flex: 1, 
+					//	//x_store_id: 'stoFlight-' + this.Flight.callsign
+					//	//store: Ext.getStore('stoFlight-' + this.Flight.callsign)
+					//})
+				]
+			},
+		
+			//= Positions Grid
 			Ext.create('Ext.grid.Panel', {
-				title: 'Positions',
-				region: "center",
+				title: 'Positions', flex: 1,
+				region: "east",
 				store: Ext.getStore('stoFlight-' + this.Flight.callsign),
 				columns: [
+					{text: 'Idx', dataIndex: 'idx', menuDisabled: true},
 					{text: 'Ts', dataIndex: 'ts', xtype: 'datecolumn', format:'H:i:s', menuDisabled: true},
 					{text: 'Alt Ft',  dataIndex: 'alt_ft', flex: 1, menuDisabled: true, align:"right"},
 					{text: 'Spd Kt', dataIndex: 'spd_kt', flex: 1, menuDisabled: true, align:"right"},
@@ -43,9 +138,9 @@ initComponent: function(){
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign),
 						dock: 'bottom', displayInfo: true
 					}
-				],
+				]
 			})
-		]
+		] 
 	});
 	this.callParent();
 	

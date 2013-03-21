@@ -2,7 +2,7 @@
 package flights
 
 import (
-    "time"
+    //"time"
     //"fmt"
     "path/filepath"
     "strings"
@@ -47,13 +47,14 @@ type Pos struct {
 	HdgT int  `json:"hdg_t"`
 	AltFt int  `json:"alt_ft"`
 	SpdKt int  `json:"spd_kt"`
-	Ts time.Time `json:"ts"`
+	Ts int32 `json:"ts"`
+	Elapsed int32   `json:"elapsed"`
 }
 
 
 // UpdatePosition() -inserts an item into the list of Flight.Positions
 // but only if the position has changed ie not parked
-func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts time.Time){
+func (me *Flight) UpdatePosition(fly crossfeed.CF_Flight, ts int32){
 	
 	// Check if this position same as last position
 	if len(me.Positions) > 1 {
@@ -136,7 +137,7 @@ type AjaxFlight struct {
 	AltFt int `json:"alt_ft"`
 	SpdKt int `json:"spd_kt"`
 	HdgT int  `json:"hdg_t"`
-	Ts string `json:"ts"`  // ISO eg 2015-12-25 00:00:01.123 << Yes we may need milisec
+	Ts int32 `json:"ts"`  
 	PositionsCount int `json:"positions_count"`
 }
 
@@ -152,7 +153,7 @@ func NewAjaxFlight(xfly *Flight) *AjaxFlight{
 	rec.AltFt = lp.AltFt
 	rec.SpdKt = lp.SpdKt
 	rec.HdgT = lp.HdgT
-	rec.Ts = lp.Ts.Format("2006-01-02 15:04:05")
+	rec.Ts = lp.Ts
 	rec.PositionsCount = len(xfly.Positions)
 	return rec
 }

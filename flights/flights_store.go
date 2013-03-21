@@ -65,12 +65,7 @@ func (me *FlightsStore) StartCrossfeedTimer() {
 					me.Flights[cffly.Callsign] = xfly
 				}
 				
-				xfly.UpdatePosition(cffly, ts)  // Update this flights position
-				if cffly.Callsign == "Hermi" {
-					fmt.Println(xfly.Positions)
-					fmt.Println(xfly.Position())
-				}
-				// TODO << Send out message (help)
+				xfly.UpdatePosition(cffly, ts.Unix() )  // Update this flights position
 			}
 		}
 	}()
@@ -117,6 +112,11 @@ func (me *FlightsStore) GetAjaxFlightPayload(callsign string) string {
     	pay.ErrMsg = "Callsign not found"
     }else{
     	pay.Positions = F.Positions
+		first_ts := pay.Positions[0].Ts
+    	for idx, ele := range pay.Positions{
+    		ele.Elapsed = ele.Ts - first_ts
+    		
+    	}
         
 	}
     s, _ := json.MarshalIndent(pay, "" , "  ")

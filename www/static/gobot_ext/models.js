@@ -38,6 +38,7 @@ Ext.define('GB.model.MpServer', {
 Ext.define('GB.model.Position', {
     extend: 'Ext.data.Model',
     fields: [
+		{name: 'elapsed', type: 'int', sortType: "asInt"},
         {name: 'lat',  type: 'string',},
         {name: 'lon',   type: 'string'},
         {name: 'alt_ft', type: 'int', sortType: "asInt"},
