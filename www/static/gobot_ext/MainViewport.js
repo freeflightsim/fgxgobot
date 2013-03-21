@@ -84,16 +84,15 @@ initComponent: function(){
 					Ext.create("GB.dev.DevPanel", {
 						x_name: "dev_panel"
 					}),
+		   
 					//== Flights Tab
-					Ext.create("GB.flights.FlightsPanel", {
-						x_name: "flights_panel"
-					}),
+					Ext.create("GB.flights.FlightsPanel", {x_name: "flights_panel"}),
+		   
 					//== MpServers Tab
-					//Ext.create("GB.mpservers.MpServersPanel", {
-					//}),
+					Ext.create("GB.mpservers.MpServersPanel", {}),
+			  
 					//== Radio Tab
-					//Ext.create("GB.radio.RadioPanel", {
-					//})
+					Ext.create("GB.radio.RadioPanel", {})
 					
 				]
 			}//= center tabs
