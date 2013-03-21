@@ -53,8 +53,8 @@ initComponent: function(){
 		layout: 'border',
 		items: [
 			Ext.create("GB.TopToolbar", {region: "north", x_name: "top_toolbar"}),
-			{xtype: "tabpanel", region: "center", x_name: "tab_panel",
-				closable: true,
+			{xtype: "tabpanel", region: "center", x_name: "tab_panel", 
+				header: false, 
 				items: [
 				
 					//== Flights Tab

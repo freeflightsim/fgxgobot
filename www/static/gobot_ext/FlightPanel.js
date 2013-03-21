@@ -24,36 +24,40 @@ initComponent: function(){
 	});
 	Ext.getStore('stoFlight-' + this.Flight.callsign).sort("elapsed", "ASC");
 	
-	//var Dt = new Date()
-	//var rStart = Ext.Date.add(Dt, Ext.Date.MINUTE, -10);
-	//var rEnd = Ext.Date.add(Dt, Ext.Date.MINUTE, 10);
-	//console.log(Dt, rStart, rEnd);
 	Ext.apply(this, {
-		border: false, frame: false,
-		layout: "border",
+		border: false, frame: false, padding: 0, margin: 0,
+		layout: "border", 
 		items: [
-			{xtype: "container", region: "north", layout: "hbox", 
+			{xtype: "panel", region: "north", layout: "hbox", padding: 0, margin: 0,
+				title: "=", c_name: "callsign_words",
 				padding: 5, defaults: {margin: 2, padding: 0},
+				
 				items: [
 					{xtype: "fieldset", title: "Heading", flex: 1,
 						items: [
-							{xtype: "displayfield", hideLabel: true, name: "hdg_t", value: 0}
+							{xtype: "displayfield", hideLabel: true, c_name: "hdg_t", value: 0}
 						]
 					},
 					{xtype: "fieldset", title: "Altitude Ft", flex: 1,
 						items: [
-							{xtype: "displayfield", hideLabel: true, name: "alt_ft", value: 0}
+							{xtype: "displayfield", hideLabel: true, c_name: "alt_ft", value: 0}
 						]
 					},
 					{xtype: "fieldset", title: "Speed Kt", flex: 1,
 						items: [
-							{xtype: "displayfield", hideLabel: true, name: "spd_kt", value: 0}
+							{xtype: "displayfield", hideLabel: true, c_name: "spd_kt", value: 0}
 						]
 					}
 				]
 			},
-			{xtype: "container", region: "center", flex: 3, 
-				layout: {type: "border"}, ssheight: 600, title: "Charts",
+			{xtype: "panel", region: "center", flex: 3, 
+				dockedItems: [
+					{xtype: 'pagingtoolbar',
+						store: Ext.getStore('stoFlight-' + this.Flight.callsign),
+						dock: 'bottom', displayInfo: true
+					}
+				],
+				layout: {type: "border"}, 
 				items: [
 					Ext.create("GB.FlightSpeedChart", {
 						flex: 1,  region: "center",
@@ -62,79 +66,12 @@ initComponent: function(){
 					Ext.create("GB.FlightAltitudeChart", {
 						flex: 2,  region: "north",
 						store: Ext.getStore('stoFlight-' + this.Flight.callsign)
-					}),
-		   			
-					/*Ext.create('Ext.chart.Chart', {
-						flex: 1,
-						xtype: 'chart',
-						style: 'background:#fff',
-						animate: true,
-						store: Ext.getStore('stoFlight-' + this.Flight.callsign),
-						shadow: true,
-						theme: 'Category1',
-						legend: {
-							position: 'right'
-						},
-						axes: [{
-							type: 'Numeric',
-							minimum: 0,
-							position: 'left',
-							fields: ['alt_ft', 'speed_kt'],
-							title: 'Number of Hits',
-							minorTickSteps: 1,
-							grid: {
-								odd: {
-									opacity: 1,
-									fill: '#ddd',
-									stroke: '#bbb',
-									'stroke-width': 0.5
-								}
-							}
-						}, {
-							type: 'Category',
-							position: 'bottom',
-							fields: ['idx'],
-							title: 'Positions',
-							step: 1
-						}],
-						series: [{
-							type: 'line',
-							highlight: {
-								size: 7,
-								radius: 7
-							},
-							axis: 'left',
-							xField: 'idx',
-							yField: 'alt_ft',
-							markerConfig: {
-								type: 'cross',
-								size: 4,
-								radius: 4,
-								'stroke-width': 0
-							}
-						}, {
-							type: 'line',
-							highlight: {
-								size: 7,
-								radius: 7
-							},
-							axis: 'left',
-							smooth: true,
-							xField: 'idx',
-							yField: 'spd_kt',
-							markerConfig: {
-								type: 'circle',
-								size: 4,
-								radius: 4,
-								'stroke-width': 0
-							}
-						} 
-						]
-					}), */  //= End chart
+					})
 				]
 			},
 		
 			//= Positions Grid
+			/*
 			Ext.create('Ext.grid.Panel', {
 				title: 'Positions', flex: 1,
 				region: "east", width: 300,
@@ -154,7 +91,7 @@ initComponent: function(){
 						dock: 'bottom', displayInfo: true
 					}
 				]
-			})
+			})*/
 		] 
 	});
 	this.callParent();
@@ -170,7 +107,7 @@ initComponent: function(){
 },
 
 fetch_data: function(){
-	console.log("fetch data");
+	//console.log("fetch data");
 	Ext.Ajax.request({
 		scope: this, 
 		url : "/flight/" + this.Flight.callsign,
@@ -183,12 +120,15 @@ fetch_data: function(){
 			var data = Ext.decode(resp.responseText);
 
 			//console.log(data);
-			Ext.getStore('stoFlight-' + this.Flight.callsign).loadData(data.positions);
-			var last = data.positions[ data.positions.length - 1];
+			var poss = data.flight.positions;
+			Ext.getStore('stoFlight-' + this.Flight.callsign).loadData(poss);
+			var last = poss[ poss.length - 1];
 			//console.log("last", last);
-			this.down("[name=hdg_t]").setValue(last.hdg_t);
-			this.down("[name=alt_ft]").setValue(last.alt_ft);
-			this.down("[name=spd_kt]").setValue(last.spd_kt);
+			this.down("[c_name=callsign_words]").setTitle(data.flight.callsign_words);
+			
+			this.down("[c_name=hdg_t]").setValue(last.hdg_t);
+			this.down("[c_name=alt_ft]").setValue(last.alt_ft);
+			this.down("[c_name=spd_kt]").setValue(last.spd_kt);
 			//this.fireEvent("FLIGHT", data);
 		},
 		failure: function(resp){

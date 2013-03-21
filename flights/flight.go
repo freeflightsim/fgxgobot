@@ -9,6 +9,7 @@ import (
 )
 import (
     "github.com/fgx/fgxgobot/crossfeed"
+    "github.com/fgx/fgxgobot/radio"
 )
 
 
@@ -18,7 +19,7 @@ import (
 // so for now a constant. 
 //
 // Current Defaut is 180 = 3 min track at 1 req per second
-const HISTORY_MAX_POSITIONS = 500  
+const HISTORY_MAX_POSITIONS = 100  
 
 
 
@@ -38,6 +39,9 @@ type Flight struct {
 	Model string
 	Aero string    
 	Positions []*Pos 
+}
+func (me *Flight) CallsignWords() string {
+	return radio.Callsign2Words(me.Callsign) 
 }
 
 // A Position with its Ts timestamp
@@ -115,21 +119,15 @@ func NewFlight(cffly crossfeed.CF_Flight) *Flight{
 type AjaxFlightsPayload struct {
 	Success bool `json:"success"`
 	Ts string `json:"ts"`
-	Flights []*AjaxFlight `json:"flights"`
+	Flights []*AjaxFlightRow `json:"flights"`
 }
 
-// Represents a json encoder spooling out complete ajax payload for  /flight/{callsign}
-type AjaxFlightPayload struct {
-	Success bool `json:"success"`
-	Err bool `json:"err"`
-	ErrMsg string `json:"err_msg"`
-	Callsign string `json:"callsign"`
-	Positions []*Pos `json:"positions"`
-}
+
 
 // Represents a json encoder row of a Flight
-type AjaxFlight struct {
+type AjaxFlightRow struct {
 	Callsign string `json:"callsign"`
+	CallsignWords string `json:"callsign_words"`
 	Model string `json:"model"`
 	Aero string `json:"aero"`
 	Lat float32 `json:"lat"`
@@ -141,20 +139,37 @@ type AjaxFlight struct {
 	PositionsCount int `json:"positions_count"`
 }
 
+// Represents a json encoder spooling out complete ajax payload for  /flight/{callsign}
+type AjaxFlightPayload struct {
+	Success bool `json:"success"`
+	Err bool `json:"err"`
+	ErrMsg string `json:"err_msg"`
+	Flight *AjaxFlightPositions `json:"flight"`
+}
+
+type AjaxFlightPositions struct {
+	Callsign string `json:"callsign"`
+	CallsignWords string `json:"callsign_words"`
+	Model string `json:"model"`
+	Aero string `json:"aero"`  
+	Positions[] *Pos `json:"positions"`
+}
+
 //Creates a new AjaxFlight for encoding
-func NewAjaxFlight(xfly *Flight) *AjaxFlight{
-	rec := new(AjaxFlight)
-	rec.Callsign = xfly.Callsign
-	rec.Model = xfly.Model
-	rec.Aero = xfly.Aero
-	lp := xfly.Position() // last position 
+func NewAjaxFlightRow(fly *Flight) *AjaxFlightRow{
+	rec := new(AjaxFlightRow)
+	rec.Callsign = fly.Callsign
+	rec.CallsignWords = fly.CallsignWords()
+	rec.Model = fly.Model
+	rec.Aero = fly.Aero
+	lp := fly.Position() // last position 
 	rec.Lat = lp.Lat
 	rec.Lon = lp.Lon
 	rec.AltFt = lp.AltFt
 	rec.SpdKt = lp.SpdKt
 	rec.HdgT = lp.HdgT
 	rec.Ts = lp.Ts
-	rec.PositionsCount = len(xfly.Positions)
+	rec.PositionsCount = len(fly.Positions)
 	return rec
 }
 

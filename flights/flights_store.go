@@ -8,6 +8,7 @@ import (
 )
 import (
     "github.com/fgx/fgxgobot/crossfeed"
+     "github.com/fgx/fgxgobot/radio"
 )
 
 //--------------------------------------------------------------------
@@ -33,7 +34,7 @@ func NewFlightsStore() *FlightsStore {
 func (me *FlightsStore) StartCrossfeedTimer() {
 
 	//= To do Make the interval configurable via web interface or websocket etc
-	ticker := time.NewTicker(time.Millisecond * 2000)
+	ticker := time.NewTicker(time.Millisecond * 5000)
 	
     go func() {
 		for t := range ticker.C {
@@ -80,7 +81,7 @@ func (me *FlightsStore) GetAjaxFlightsPayload() string {
 
 	var pay = new(AjaxFlightsPayload)
     pay.Success = true // for extjs
-    pay.Flights = make([]*AjaxFlight,0)
+    pay.Flights = make([]*AjaxFlightRow,0)
     
 	// TODO Would be nice to sort properly by map Key But LONG
 	sort_idx := make([]string, 0, len(me.Flights))
@@ -89,7 +90,7 @@ func (me *FlightsStore) GetAjaxFlightsPayload() string {
     }
     sort.Strings(sort_idx)
     for _, i := range sort_idx {
-    	var ajF = NewAjaxFlight(me.Flights[i])
+    	var ajF = NewAjaxFlightRow(me.Flights[i])
     	pay.Flights = append(pay.Flights, ajF)
     }
     
@@ -104,18 +105,23 @@ func (me *FlightsStore) GetAjaxFlightPayload(callsign string) string {
 
 	var pay = new(AjaxFlightPayload)
     pay.Success = true // for extjs
-    pay.Callsign = callsign
-    pay.Positions = make([]*Pos,0)
     pay.Err = false
+    pay.Flight = new(AjaxFlightPositions)
+    pay.Flight.Callsign = callsign
     
     F, ok := me.Flights[callsign]
     if !ok  {
     	pay.Err = true
     	pay.ErrMsg = "Callsign not found"
     }else{
-    	pay.Positions = F.Positions
-		first_ts := pay.Positions[0].Ts
-    	for _, ele := range pay.Positions{
+    
+    	pay.Flight.CallsignWords = radio.Callsign2Words(callsign)	
+		pay.Flight.Model = F.Model
+		pay.Flight.Aero = F.Aero
+    	pay.Flight.Positions = make([]*Pos,0)
+    	pay.Flight.Positions = F.Positions
+		first_ts := pay.Flight.Positions[0].Ts
+    	for _, ele := range pay.Flight.Positions{
     		ele.Elapsed = ele.Ts - first_ts
     	}
         

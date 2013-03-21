@@ -6,7 +6,7 @@ Ext.define('GB.model.Flight', {
     fields: [
         {name: 'fid',  type: 'string', sortType: "asText"},
         {name: 'callsign',  type: 'string', sortType: "asUCText"},
-		
+		{name: 'callsign_words',  type: 'string', sortType: "asUCText"},
 		{name: 'model',  type: 'string', sortType: "asUCText"},
 		{name: 'aero',  type: 'string', sortType: "asUCText"},
 		

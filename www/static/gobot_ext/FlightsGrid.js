@@ -11,19 +11,24 @@ initComponent: function(){
 			deferEmpty: false
 		},
 		columns: [
-			{text: 'Callsign',  dataIndex: 'callsign', width: 100, menuDisabled: true,
+			{text: 'Callsign',  dataIndex: 'callsign', width: 70, menuDisabled: true,
 				renderer: function(v, meta, rec){
 					meta.style = "font-weight: bold;";
 					return v;
 				}
 			},
-			{text: 'Alt Ft', dataIndex: 'alt_ft', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Spd Kt', dataIndex: 'spd_kt', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Hdg True', dataIndex: 'hdg_t', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Lat', dataIndex: 'lat', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Lon', dataIndex: 'lon', flex: 1, align: "right", menuDisabled: true},
-			{text: 'Positions', dataIndex: 'positions_count', width: 100, align: "right", menuDisabled: true},
-			{text: 'Model', dataIndex: 'aero', flex: 1, align: "left", menuDisabled: true}
+			{text: 'Radio', dataIndex: 'callsign_words', flex: 2, align: "left", menuDisabled: true},
+			{text: 'Aero', dataIndex: 'aero', width: 80, align: "left", menuDisabled: true},
+			
+			{text: 'Alt Ft', dataIndex: 'alt_ft', width: 60, align: "right", menuDisabled: true},
+			{text: 'Spd Kt', dataIndex: 'spd_kt', width: 50, align: "right", menuDisabled: true},
+			{text: 'Hdg T', dataIndex: 'hdg_t', width: 50, align: "right", menuDisabled: true},
+		   
+			{text: 'Lat', dataIndex: 'lat', width: 80, align: "right", menuDisabled: true},
+			{text: 'Lon', dataIndex: 'lon', width: 80, align: "right", menuDisabled: true},
+		   
+			{text: 'Pos', dataIndex: 'positions_count', width: 30, align: "right", menuDisabled: true},
+			
 		],
 		dockedItems: [
 			{xtype: 'pagingtoolbar',
