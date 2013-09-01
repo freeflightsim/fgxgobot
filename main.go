@@ -57,7 +57,7 @@ func main() {
 	router.HandleFunc("/radio/callsign2words", www.Ajax_radio_callsign2words)
 	
 	
-	router.HandleFunc("/dynamic.css", www.Style_dynamic_css)
+	router.HandleFunc("/dynamic.01.css", www.Style_dynamic_css)
     
     router.HandleFunc("/", www.Html_home_page)
 	http.Handle("/", router)

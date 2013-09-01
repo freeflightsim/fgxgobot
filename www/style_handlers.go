@@ -8,47 +8,87 @@ import (
 )
 
 const FAM_FAM_URL = "http://static.freeflightsim.org"
-// Represent a Character in the Alphabet with json encoding for output
-//type Ico struct{
-//	Ico string `json:"char"`
-//	File string `json:"word"`
-//}/
 
-/*
-static_icons['icoHelp'] = "help.png"
-static_icons['icoExecute'] = "accept.png"
-static_icons['icoHtml'] = "html.png"
 
-static_icons['icoDev'] = "shape_align_bottom.png"
-static_icons['icoDatabase'] = "database.png"
 
-static_icons['icoSelectStyle'] = "color_swatch.png"
-
-static_icons['icoLogin'] = "key.png"
-
-static_icons['icoRefresh'] = "refresh.gif"
-
-static_icons['icoOn'] = "bullet_pink.png"
-static_icons['icoOff'] = "bullet_black.png"
-*/
-
-// A map of the Alphabet definition
-var FamFamIcons = map[string]string {
-
-	"icoRefresh": "refresh.gif",
-	"icoOff": "bullet_black.png",
-	"icoOn": "bullet_pink.png",
-	
-	"icoConnect": "connect.png",
-	"icoDisconnect": "disconnect.png",
-	
-	"icoDev": "shape_align_bottom.png",
-}
 
 var LocalIcons = map[string]string {
-	"icoFgx": "fgx-cap-16.png",
-	"icoFlightGear": "flightgear_icon.png",
+    "icoFgx": "fgx-cap-16.png",
+    "icoFlightGear": "flightgear_icon.png",
+    
+    "icoAirport": "apt.png",
+    "icoFix": "vfr_fix.png",
+    "icoNdb": "ndb.16.png",
+    "icoVor": "vor.png",
+    "icoClr": "go.gif",
 }
+
+var FamFamIcons = map[string]string {
+    
+    "icoAirways": "chart_line.png",
+    "icoFlightPlans": "page_white_actionscript.png",
+    
+    "icoHelp": "help.png",
+    "icoExecute": "accept.png",
+    "icoHtml": "html.png",
+    
+    "icoDev": "shape_align_bottom.png",
+    "icoDatabase": "database.png",
+    
+    "icoSelectStyle": "color_swatch.png",
+    
+    "icoLogin": "key.png",
+    
+    "icoRefresh": "refresh.gif",
+    
+    "icoOn": "bullet_pink.png",
+    "icoOff": "bullet_black.png",
+    
+    
+    "icoBookMarkAdd": "book_add.png",
+    
+    "icoSettings": "cog.png",
+    
+    "icoCallSign": "page_white_c.png",
+    
+    
+    "icoFlights": "text_horizontalrule.png",
+    
+    "icoMapCore": "map.png",
+    "icoMap": "map.png",
+    "icoMapAdd": "map_add.png",
+    "icoMapGo": "map_go.png",
+    
+    "icoMpServers": "server_database.png",
+    
+    "icoBlue": "bullet_blue.png",
+    "icoOrange": "bullet_orange.png",
+    "icoPink": "bullet_pink.png",
+    "icoGreen": "bullet_green.png",
+    "icoRed": "bullet_red.png",
+    "icoWhite": "bullet_white.png",
+    "icoYellow": "bullet_yellow.png",
+    
+    
+    "icoUsers": "group.png",
+    "icoUser": "user.png",
+    "icoUserAdd": "user_add.png",
+    "icoUserEdit": "user_edit.png",
+    "icoUserDelete": "user_delete.png",
+    
+    
+    
+    "icoCancel": "bullet_black.png",
+    "icoSave": "accept.png",
+    
+    
+    
+    
+    "icoRefreshStop": "clock_stop.png",
+    "icoRefreshRun": "clock_run.png",
+}
+
+
 
 func Style_dynamic_css(w http.ResponseWriter, r *http.Request){
 	
