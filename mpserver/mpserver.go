@@ -46,12 +46,15 @@ const STATUS_UP string = "Up"
 
 // MpServer is the object pointer  in the mpserver.MpServersStore
 type MpServer struct {
-	Status string  `json:"status"`
+	
 	No int `json:"no"`
 	Domain string  `json:"domain"`
 	Ip string  `json:"ip"`
 	LastTelnet string `json:"last_telnet"`
+	TelnetLag int64 `json:"telnet_lag"`
 	TelnetReply string `json:"telnet_reply"`
+	LastErrMsg string  `json:"last_err_msg"`
+	LastErrdate string `json:"last_err_date"`
 	//LastSeen time.Time //TODO we need to do this after telnet  
 }
 

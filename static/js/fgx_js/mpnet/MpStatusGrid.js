@@ -61,22 +61,21 @@ initComponent: function() {
 		loadMask: false,
 		
 		columns: [ 
-			{header: 'No',  dataIndex:'no', sortable: true, width: 40},
-			{header: 'Domain',  dataIndex:'domain', sortable: true, enableHdMenu: false
-			},
-           {header: 'IP Address',  dataIndex:'ip', sortable: true, enableHdMenu: false
-			},
-			
+            {header: 'No',  dataIndex:'no', sortable: true, width: 40,  menuDisabled: true},
+			{header: 'Domain',  dataIndex:'domain', sortable: true, menuDisabled: true, flex: 2},
+            {header: 'IP Address',  dataIndex:'ip', sortable: true,  menuDisabled: true},
+
 			{header: 'Last Checked', dataIndex:'last_checked', sortable: true, 
-                align: 'right', enableHdMenu: false
+                align: 'right',  menuDisabled: true
 			},
 			{header: 'Last Seen', dataIndex:'last_seen', sortable: true, 
-                align: 'right', enableHdMenu: false
+                align: 'right',  menuDisabled: true
 			},
-            {header: 'Status', dataIndex:'status', sortable: true, 
-                align: 'right', enableHdMenu: false
-            },
-			{header: 'Last Lag', dataIndex:'lag', sortable: true, align: 'right',
+           
+           {header: 'Last Telnet', dataIndex:'last_telnet', sortable: true, 
+                align: 'right',  menuDisabled: true},
+           {header: 'Telnet Lag', dataIndex:'telnet_lag', sortable: true, 
+               align: 'right',  menuDisabled: true,
 				renderer: function(v){
 					if(v > 0){
 						return v;
@@ -90,7 +89,7 @@ initComponent: function() {
 			{header: 'Time Zone',  dataIndex:'time_zone', sortable: true, hidden: false,
 				width: 100,
 			},
-			{header: 'Status',  dataIndex:'status', sortable: true, hidden: false,
+           {header: 'Last Error',  dataIndex:'last_err_msg', sortable: true, hidden: false,
 				width: 100,
 			},
 		],

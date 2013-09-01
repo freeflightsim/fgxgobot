@@ -10,7 +10,7 @@ import (
 
 
 // The max dns no to lookup 
-const MAX_DNS_SERVER = 30
+const MAX_DNS_SERVER = 25
 
 
 //--------------------------------------------------------------------
@@ -48,7 +48,7 @@ func (me *MpServersStore) StartDnsTimer() {
 func (me *MpServersStore) DoDnsScan() {
 
 	fmt.Println(">> DoDnsScan")	
-	for i := 0; i < MAX_DNS_SERVER; i++ {
+	for i := 1; i < MAX_DNS_SERVER; i++ {
 		go me.DnsLookupServer(  i  )
 	}
 }
@@ -61,47 +61,72 @@ func (me *MpServersStore) DoDnsScan() {
 func (me *MpServersStore) DnsLookupServer(no int) {
 	
 	fqdn := GetServerName(no)
-	//fmt.Println("Start>> :", fqdn)
 	
+    //fmt.Println("Start>> :", fqdn)
+    //= Check if MpServer exists in Store map
+    Mp, ok := me.MpServers[no]
+    if !ok {
+        // No entry for this server no so create one
+        Mp = new(MpServer)
+        
+        me.MpServers[no] = Mp
+    }
+    Mp.No = no
+    Mp.Domain = fqdn
+    
 	addrs, err := net.LookupHost(fqdn)
 	if err != nil {
 		//fmt.Println(" <<Lookup ERR: ", fqdn)	
 		//panic(err)
-		fmt.Println(" << Dns NO: ", fqdn)
+        Mp.LastErrMsg = "DNS Lookup Failed"
+		fmt.Println(" << No DNS: ", fqdn)
 		return	
 	}
 	
-	//= Check if MpServer exists in Store map
-	Mp, ok := me.MpServers[no]
-	if !ok {
-		// No entry for this server no so create one
-		Mp = new(MpServer)
-		Mp.Status = STATUS_DNS
-		me.MpServers[no] = Mp
-	}
-	Mp.No = no
-	Mp.Domain = fqdn
+
 	
 	//= TODO ring bells if changed
 	Mp.Ip = addrs[0]
 	
+	
 	fmt.Println(" << Dns Ok: ", fqdn)	
+    
     
     tcp_server := fqdn + ":5001"
     tcpAddr, err := net.ResolveTCPAddr("tcp", tcp_server)
     
+    //=============================
     // Make Telnet Connection
+    telnet_start := time.Now().UTC().UnixNano()
     conn, err := net.DialTCP("tcp", nil, tcpAddr)
+    defer conn.Close()
+    
     if err != nil {
         println("Dial failed:", err.Error())
-        //os.Exit(1)
-    }
-    reply := make([]byte, 2048)
+        Mp.LastErrMsg = "Telnet Failed"
+        
+    }else{
+        reply := make([]byte, 2048)
+        
+        _, err = conn.Read(reply)
+        
+        //Mp.TelnetReply = string(reply)
+        
+        telnet_end := time.Now().UTC()
+        Mp.LastTelnet = telnet_end.Format(time.RFC3339) 
+        //println("reply from server=", string(reply))
+        //println("timers=", telnet_start)
+        
+        //println("timers=", telnet_end)
+        
+        diff_nano := telnet_end.UnixNano() - telnet_start
+        diff_ms := diff_nano / 1000000 
+        Mp.TelnetLag = diff_ms
     
-    _, err = conn.Read(reply)
-    Mp.TelnetReply = string(reply)
-    println("reply from server=", string(reply))
-    conn.Close()
+        println("diff=", diff_ms)
+    }
+    
+    
     
     
     

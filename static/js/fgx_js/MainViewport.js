@@ -87,8 +87,10 @@ xMpServersStore: Ext.create("Ext.data.JsonStore", {
 		{name: "ip", type: 'string'},
 		{name: "last_checked", type: 'string'},
 		{name: "last_seen", type: 'string'},
-        {name: "status", type: 'string'},
-		{name: "lag", type: 'int'},
+        {name: "last_err_msg", type: 'string'},
+        
+        {name: "telnet_lag", type: 'int'},
+        {name: "last_telnet", type: "date"},
 		'country', 'time_zone', 'lat', 'lon'
 	],
     proxy: {
