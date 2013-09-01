@@ -2,7 +2,7 @@
 >>> Pete's coments to remind himself..
 
 Here's some notes on issues I had with go as a newbie,
-and this is with a background and paid for
+and this is with a long background from
 php, vb6, python, pyqt, qt/C++, little java
 
 ----------------------------------------------------------------
@@ -11,46 +11,57 @@ php, vb6, python, pyqt, qt/C++, little java
 I Installed Go via
 	apt-get install golang
  
-So u should get cmd line
+So you should get the command "go"
 	> go
 	
-To get the enviroment check 
+To see the environment with 
 	> go env 
 	U should see 
 		GOROOT="/usr/lib/go" << Thats where it is on my kubuntu
 
 How the difficult part..
-U need to setup a workspace.. 
-	> mkdir ~go-nutz
-or
-	/my/path/2go_workspace
+U need to setup a workspace, where go source and compiles will got o
+> mkdir /path/to/mygo
 
-This is important as u now need to set the GOPATH enviroment variable
-export GOPATH=/my/path/2go_workspace
+This is important as you now need to set the GOPATH environment variable
+export GOPATH=/path/to/mygo
 
-Within this directory U need to create three folders..
+Within this directory create three folders..
 	$GOPATH/bin < this is where binary files will be compiled to
 	$GOPATH/pkg < similar suff
-But most important
-	$GOPATH/src < Yipee.. go to the source
 	
+But most important
+	$GOPATH/src < the source
+	
+The idea is that a "project" exists in a subdirectory of src/
+eg
+mkdir $GOPATH/src/mytestgo
+cd $GOPATH/src/mytestgo
+pico main.go < write some code
+go run main.go
+
+For external libraries, there's the inbuild "go get" command
+and this is a bit like easy_install/pip, cpan for python and perl
+eg
+> go get github.com/gorilla/mux
+
+will "checkout" the source to
+$GOPATH/src/github.com/gorilla/mux/
+
+To use this package in code, import with
+import "github.com/gorilla/mux/"
+
 Now the namespace stuff
 This project is actually in a directory
 	$GOPATH/src/github.com/fgx/fgxgobot
 	
 And is a "direct git checkout"
-But also the namespace for imports ,, like java eg
+But also the namespace for imports ,
 	import("github.com/fgx/fgxgobot/radio") 
 
-This is really useful a the go command has "> go get "a remote package" and checkits it our for u automagically
-This project relies on and this command can be exxecuted as long as GOPATH is correct - destination
-> go get "github.com/gorilla/mux"
-> go get "code.google.com/p/go.net/websocket" 	
-
-
-
-
-
+This project uses atmo...
+> go get github.com/gorilla/mux
+> go get code.google.com/p/go.net/websocket 	
 
 
 

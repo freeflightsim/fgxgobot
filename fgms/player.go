@@ -4,7 +4,7 @@ package fgms
 
 //+ From http://gitorious.org/fgms/fgms-0-x/blobs/master/src/server/fg_player.cxx
 
-// From
+// http://gitorious.org/fgms/fgms-0-x/blobs/master/src/server/fg_player.hxx#line36
 type FG_Player struct{
 	Origin string
 	NetAddress string // needs to be address
@@ -21,4 +21,11 @@ type FG_Player struct{
     PktsReceivedFrom  int
     LastRelayedToInactive int
 }
+
+// TODO
+// http://gitorious.org/fgms/fgms-0-x/blobs/master/src/server/fg_player.cxx#line71
+func (me FG_Player) assign() {
+
+}
+
 
