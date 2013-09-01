@@ -50,10 +50,16 @@ type MpServer struct {
 	No int `json:"no"`
 	Domain string  `json:"domain"`
 	Ip string  `json:"ip"`
+	
 	LastTelnet string `json:"last_telnet"`
 	TelnetLag int64 `json:"telnet_lag"`
-	TelnetLags int64[] 
+	TelnetLags []int64
 	TelnetReply string `json:"telnet_reply"`
+	
+	LastUDP string `json:"last_udp"`
+	UDPLag int64 `json:"udp_lag"`
+	UDPLags []int64
+	
 	LastErrMsg string  `json:"last_err_msg"`
 	LastErrdate string `json:"last_err_date"`
 	//LastSeen time.Time //TODO we need to do this after telnet  

@@ -89,7 +89,7 @@ func (me *MpServersStore) DnsLookupServer(no int) {
 	Mp.Ip = addrs[0]
 	
 	
-	fmt.Println(" << Dns Ok: ", fqdn)	
+	//fmt.Println(" << Dns Ok: ", fqdn)	
     
     
     tcp_server := fqdn + ":5001"
@@ -98,17 +98,17 @@ func (me *MpServersStore) DnsLookupServer(no int) {
     //=============================
     // Make Telnet Connection
     telnet_start := time.Now().UTC().UnixNano()
-    conn, err := net.DialTCP("tcp", nil, tcpAddr)
-    defer conn.Close()
+    telnetConn, err := net.DialTCP("tcp", nil, tcpAddr)
+    defer telnetConn.Close()
     
     if err != nil {
-        println("Dial failed:", err.Error())
+        println("Telnet failed:", err.Error())
         Mp.LastErrMsg = "Telnet Failed"
         
     }else{
         reply := make([]byte, 2048)
         
-        _, err = conn.Read(reply)
+        _, err = telnetConn.Read(reply)
         
         //Mp.TelnetReply = string(reply)
         
@@ -123,11 +123,40 @@ func (me *MpServersStore) DnsLookupServer(no int) {
         diff_ms := diff_nano / 1000000 
         Mp.TelnetLag = diff_ms
     
-        println("diff=", diff_ms)
+        //println("diff=", diff_ms)
     }
     
     
+    //=================================================
+    //  Make UDP connection
+    udp_server := fqdn + ":5004"
+    udp_addr, err := net.ResolveUDPAddr("udp", udp_server)
+    if err != nil {
+        //conn.Active = false
+        Mp.LastErrMsg = "Could not resolve UDP address"
+        println("Could not resolve UDP address")
+        //log.Println("\tFAIL: Crossfeed to resolve UDP address:  ", udp_server, err)
+        return
+    }
     
+    //= open socket and listen
+    udp_start := time.Now().UTC().UnixNano()
+    udpConn, err_listen := net.DialUDP("udp", nil,  udp_addr)
+    defer udpConn.Close()
+    if err_listen != nil {
+        //conn.Active = false
+        //conn.LastError = "Couldnt open UDP port"
+        Mp.LastErrMsg = "Could not open UDP port"
+        println("Could not open UDP port", err_listen.Error())
+        //log.Println("\tFAIL: Crossfeed FAIL to Open:  ", conn.Url, udp_addr, err_listen)
+        return
+    }else{
+        udp_end := time.Now().UTC()
+        Mp.LastUDP = udp_end.Format(time.RFC3339) 
+        Mp.UDPLag = (udp_end.UnixNano() - udp_start) / 1000
+    }
+    //println("Yes Udp")
+        
     
     
 }

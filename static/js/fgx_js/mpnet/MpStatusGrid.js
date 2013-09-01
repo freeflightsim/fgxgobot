@@ -83,6 +83,15 @@ initComponent: function() {
 					return "-";
 				}
 			},
+           {header: 'UDP Lag', dataIndex:'udp_lag', sortable: true, 
+               align: 'right',  menuDisabled: true,
+                renderer: function(v){
+                    if(v > 0){
+                        return v;
+                    }
+                    return "-";
+                }
+           },
 			{header: 'Country',  dataIndex:'country', sortable: true, hidden: false,
 				width: 100,
 			},
