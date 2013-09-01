@@ -59,10 +59,11 @@ func Ajax_flight(w http.ResponseWriter, r *http.Request) {
 
 // Returns mpservers data ajax url = /mpservers 
 func Ajax_mpservers(w http.ResponseWriter, r *http.Request) {
-	
+    w.Header().Set("Content-Type", "application/json")
 	s := xstate.GStateMachine.MpServers.GetAjaxPayload()
 	fmt.Fprint(w, s)
 }
+
 
 // Returns radio alphabet data ajax url = /radio/alphabet
 func Ajax_radio_alphabet(w http.ResponseWriter, r *http.Request) {

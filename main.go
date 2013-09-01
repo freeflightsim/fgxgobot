@@ -50,7 +50,7 @@ func main() {
 	router.HandleFunc("/flights", www.Ajax_flights)
 	router.HandleFunc("/flight/{callsign}", www.Ajax_flight)
 	
-	router.HandleFunc("/mpservers", www.Ajax_mpservers)
+    router.HandleFunc("/mpservers.json", www.Ajax_mpservers)
 	
 	
 	router.HandleFunc("/radio/alphabet", www.Ajax_radio_alphabet)

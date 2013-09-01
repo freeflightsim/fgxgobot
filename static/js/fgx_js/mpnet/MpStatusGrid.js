@@ -7,7 +7,7 @@ extend: "Ext.grid.Panel",
 tbw: 35,
 
 //= Triggered when a refresh toolbar button is clicked
-on_refresh_toggled: function(butt, checked){
+DEADon_refresh_toggled: function(butt, checked){
 	butt.setIconCls( checked ? "icoOn" : "icoOff");
 	if(checked){
 		this.runner.stopAll(); // stop if already ruinning
@@ -21,7 +21,7 @@ on_refresh_toggled: function(butt, checked){
 },
 
 //= Riggered for reshresh now
-on_refresh_now: function(){
+DEADon_refresh_now: function(){
 	this.store.load();
 },
 
@@ -33,11 +33,11 @@ on_refresh_now: function(){
 //===========================================================
 //== Renderers 
 // @todo: pete to put in css
-render_callsign: function(v, meta, rec){
+DEADrender_callsign: function(v, meta, rec){
 	return "<b>" + v + "</b>";
 },
 
-render_altitude: function(v, meta, rec){
+DEADrender_altitude: function(v, meta, rec){
 	return Ext.util.Format.number(v, '00,000');	
 },
 
@@ -57,20 +57,25 @@ initComponent: function() {
 			forceFit: true
 		}, 
 		stripeRows: true,
-		store: Ext.getStore("mpstatus_store"),
+        store: Ext.getStore("mpservers_store"),
 		loadMask: false,
 		
 		columns: [ 
 			{header: 'No',  dataIndex:'no', sortable: true, width: 40},
-			{header: 'Domain',  dataIndex:'fqdn', sortable: true
+			{header: 'Domain',  dataIndex:'domain', sortable: true, enableHdMenu: false
 			},
-			{header: 'IP Address',  dataIndex:'ip', sortable: true
+           {header: 'IP Address',  dataIndex:'ip', sortable: true, enableHdMenu: false
 			},
 			
-			{header: 'Last Checked', dataIndex:'last_checked', sortable: true, align: 'right',
+			{header: 'Last Checked', dataIndex:'last_checked', sortable: true, 
+                align: 'right', enableHdMenu: false
 			},
-			{header: 'Last Seen', dataIndex:'last_seen', sortable: true, align: 'right',
+			{header: 'Last Seen', dataIndex:'last_seen', sortable: true, 
+                align: 'right', enableHdMenu: false
 			},
+            {header: 'Status', dataIndex:'status', sortable: true, 
+                align: 'right', enableHdMenu: false
+            },
 			{header: 'Last Lag', dataIndex:'lag', sortable: true, align: 'right',
 				renderer: function(v){
 					if(v > 0){
@@ -93,7 +98,7 @@ initComponent: function() {
 		bbar: [
 			new Ext.PagingToolbar({
 				//frame: false, plain: true, 
-				store: Ext.getStore("mpstatus_store"),
+                store: Ext.getStore("mpservers_store"),
 				displayInfo: true,
 				pageSize: 500,
 				prependButtons: true	

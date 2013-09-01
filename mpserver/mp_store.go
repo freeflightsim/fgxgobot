@@ -80,12 +80,31 @@ func (me *MpServersStore) DnsLookupServer(no int) {
 		me.MpServers[no] = Mp
 	}
 	Mp.No = no
-	Mp.SubDomain = GetSubDomainName(no)
+	Mp.Domain = fqdn
 	
 	//= TODO ring bells if changed
 	Mp.Ip = addrs[0]
 	
 	fmt.Println(" << Dns Ok: ", fqdn)	
+    
+    tcp_server := fqdn + ":5001"
+    tcpAddr, err := net.ResolveTCPAddr("tcp", tcp_server)
+    
+    // Make Telnet Connection
+    conn, err := net.DialTCP("tcp", nil, tcpAddr)
+    if err != nil {
+        println("Dial failed:", err.Error())
+        //os.Exit(1)
+    }
+    reply := make([]byte, 2048)
+    
+    _, err = conn.Read(reply)
+    Mp.TelnetReply = string(reply)
+    println("reply from server=", string(reply))
+    conn.Close()
+    
+    
+    
 }
 
 

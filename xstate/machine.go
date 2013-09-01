@@ -47,7 +47,7 @@ type StateMachine struct {
 
 // Start() will start to DNS background timer and the CrossFeed timers WIP
 func (me *StateMachine) Start() {
-	//me.MpServers.StartDnsTimer()
+	me.MpServers.StartDnsTimer()
 	//me.Flights.StartCrossfeedTimer()
 }
 

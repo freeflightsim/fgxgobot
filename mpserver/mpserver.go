@@ -48,8 +48,10 @@ const STATUS_UP string = "Up"
 type MpServer struct {
 	Status string  `json:"status"`
 	No int `json:"no"`
-	SubDomain string  `json:"subdomain"`
+	Domain string  `json:"domain"`
 	Ip string  `json:"ip"`
+	LastTelnet string `json:"last_telnet"`
+	TelnetReply string `json:"telnet_reply"`
 	//LastSeen time.Time //TODO we need to do this after telnet  
 }
 
