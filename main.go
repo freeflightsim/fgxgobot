@@ -7,7 +7,7 @@ import (
     "net/http"
 )
 import (   
-	
+	//"os"
   	"github.com/gorilla/mux"
   
    	//"code.google.com/p/go.net/websocket" 	
@@ -37,8 +37,12 @@ func main() {
 	router := mux.NewRouter()
 	
 	//router.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
-	//router.PathPrefix("/static/").Handler( http.StripPrefix("/static",  //http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static"))) )
-    router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
+	router.PathPrefix("/static/").Handler( http.StripPrefix("/static",  http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/static"))) )
+    
+    //pwd, _ := os.Getwd()
+    //router.Static("/static", pwd)
+    //router.PathPrefix("/static").Handler(http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/static/")))
+    //router.PathPrefix("/js").Handler(http.FileServer(http.Dir("./static/js")))
 
 	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
     
