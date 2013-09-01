@@ -10,11 +10,11 @@ import (
 	
   	"github.com/gorilla/mux"
   
-   	"code.google.com/p/go.net/websocket" 	
+   	//"code.google.com/p/go.net/websocket" 	
    	
     "github.com/fgx/fgxgobot/www"
     "github.com/fgx/fgxgobot/xstate"
-    "github.com/fgx/fgxgobot/xwebsocket"
+   // "github.com/fgx/fgxgobot/xwebsocket"
 )
 
 
@@ -31,16 +31,18 @@ func main() {
 	
 	gsm.Start()
 
-	go xwebsocket.WsHubb.Run()
+	//go xwebsocket.WsHubb.Run()
 	
 
 	router := mux.NewRouter()
 	
 	//router.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static")) ))
-	router.PathPrefix("/static/").Handler( http.StripPrefix("/static", http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static"))) )
+	//router.PathPrefix("/static/").Handler( http.StripPrefix("/static",  //http.FileServer(http.Dir("/home/gogo/src/github.com/fgx/fgxgobot/www/static"))) )
+    router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 
-	http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
-
+	//http.Handle("/ws", websocket.Handler(xwebsocket.WsHandler))
+    
+    
 	router.HandleFunc("/flights", www.Ajax_flights)
 	router.HandleFunc("/flight/{callsign}", www.Ajax_flight)
 	
@@ -52,6 +54,8 @@ func main() {
 	
 	
 	router.HandleFunc("/dynamic.css", www.Style_dynamic_css)
+    
+    router.HandleFunc("/", www.Html_home_page)
 	http.Handle("/", router)
 	
 	//http.HandleFunc("/crossfeed", crossfeed_handler)
