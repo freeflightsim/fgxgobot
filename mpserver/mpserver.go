@@ -52,6 +52,7 @@ type MpServer struct {
 	Ip string  `json:"ip"`
 	LastTelnet string `json:"last_telnet"`
 	TelnetLag int64 `json:"telnet_lag"`
+	TelnetLags int64[] 
 	TelnetReply string `json:"telnet_reply"`
 	LastErrMsg string  `json:"last_err_msg"`
 	LastErrdate string `json:"last_err_date"`
